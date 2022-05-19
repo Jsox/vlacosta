@@ -1,7 +1,8 @@
 import { GraphQLClient } from 'graphql-request';
 
 export const api = async (query) => {
-  const graphcms = new GraphQLClient(
+  try {
+    const graphcms = new GraphQLClient(
     `${process.env.API_ADDRESS}`,
     {
       headers: {
@@ -9,7 +10,7 @@ export const api = async (query) => {
       }
     }
   );
-  try {
+
     const answer = await graphcms.request(`${query}`);
     return answer;
   }
