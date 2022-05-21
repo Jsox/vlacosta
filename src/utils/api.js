@@ -46,7 +46,7 @@ export const photosessions = async () =>{
       author {
         name
         picture {
-          url(transformation: {document: {output: {format: webp}}})
+          url(transformation: {document: {output: {format: webp}}, image: {resize: {fit: crop, height: 65, width: 65}}})
         }
       }
       id
@@ -57,7 +57,7 @@ export const photosessions = async () =>{
         text
       }
       coverImage {
-        url(transformation: {document: {output: {format: webp}}})
+        url(transformation: {document: {output: {format: webp}}, image: {resize: {height: 536, width: 536, fit: crop}}})
       }
       images {
         id
@@ -69,7 +69,7 @@ export const photosessions = async () =>{
           url(transformation: {document: {output: {format: webp}}})
         }
       }
-      tags(first: 3) {
+      tags(first: 4) {
         slug
         title
         color

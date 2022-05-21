@@ -5,6 +5,7 @@ import { alpha, styled } from '@mui/material/styles';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('span')(({ theme, ownerState }) => {
+
   const isLight = theme.palette.mode === 'light';
   const { color, variant } = ownerState;
 

@@ -9,7 +9,7 @@ const withTM = require('next-transpile-modules')([
   '@fullcalendar/timegrid',
   '@fullcalendar/timeline',
 ]);
-
+//
 module.exports = withPWA(withTM({
   swcMinify: false,
   trailingSlash: true,
@@ -36,5 +36,8 @@ module.exports = withPWA(withTM({
     AUTH0_DOMAIN: '',
     //
     MAPBOX: '',
+  },
+  images: {
+    domains: ['media.graphassets.com'],
   },
 }));

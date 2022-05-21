@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import React, { useRef } from 'react';
 // @mui
@@ -14,6 +13,8 @@ import Iconify from '../../components/Iconify';
 import { CarouselArrows } from '../../components/carousel';
 import NextLink from 'next/link';
 import Fab from '@mui/material/Fab';
+import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 
 // ----------------------------------------------------------------------
 
@@ -26,9 +27,9 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
   }
 
   const settings = {
-    dots: false,
+    dots: true,
     arrows: false,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     rtl: Boolean(theme.direction === 'rtl'),
@@ -36,13 +37,13 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
       {
         breakpoint: theme.breakpoints.values.lg,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
         },
       },
       {
         breakpoint: theme.breakpoints.values.md,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
         },
       },
       {
@@ -65,7 +66,13 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
   return (
     <Box sx={{ py: 2 }}>
       <CardHeader
-        title={<Typography variant="h3">{title}</Typography>}
+        title={
+          <NextLink href={actionButton.link} passHref>
+            <Button variant={'text'}>
+              <Typography variant="h3">{title}</Typography>
+            </Button>
+          </NextLink>
+        }
         subheader={text.replace('\\n', ' ')}
         action={
           <CarouselArrows
@@ -102,23 +109,23 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
 
 // ----------------------------------------------------------------------
 
-BookingItem.propTypes = {
-  item: PropTypes.shape({
-    avatar: PropTypes.object,
-    bookdAt: PropTypes.instanceOf(Date),
-    cover: PropTypes.object,
-    name: PropTypes.string,
-    person: PropTypes.string,
-    roomNumber: PropTypes.string,
-    roomType: PropTypes.array,
-    images: PropTypes.array,
-    persons: PropTypes.array,
-    author: PropTypes.object,
-    category: PropTypes.object,
-    slug: PropTypes.string,
-    place: PropTypes.object,
-  }),
-};
+// BookingItem.propTypes = {
+//   item: PropTypes.shape({
+//     avatar: PropTypes.object,
+//     bookdAt: PropTypes.instanceOf(Date),
+//     cover: PropTypes.object,
+//     name: PropTypes.string,
+//     person: PropTypes.string,
+//     roomNumber: PropTypes.string,
+//     roomType: PropTypes.array,
+//     images: PropTypes.array,
+//     persons: PropTypes.array,
+//     author: PropTypes.object,
+//     category: PropTypes.object,
+//     slug: PropTypes.string,
+//     place: PropTypes.object,
+//   }),
+// };
 
 function BookingItem({ item }) {
   const { author, place, slug, category, title: name, images, date: bookdAt, coverImage: cover, tags: roomType } = item;
@@ -129,14 +136,19 @@ function BookingItem({ item }) {
         <Stack direction="row" alignItems="center" spacing={1}>
           <Avatar sx={{ width: '65px', height: '65px' }} alt={author.name} src={author.picture.url} />
           <Stack sx={{ width: '100%' }} direction="column" justifyContent={'center'} alignItems={'end'}>
+            {/*<Scrollbar sx={{ maxHeight: '3em' }}>*/}
             <NextLink href={`/photosessions/${category.slug}/${slug}`} passHref>
-              <Typography variant='subtitle1' sx={{
-                textAlign: 'center',
-                width: '100%',
-                cursor: 'pointer',
-                minHeight: '2.8rem',
-              }}>{name}</Typography>
+              <Link variant={'text'}>
+                <Typography variant='subtitle1' sx={{
+                  textAlign: 'center',
+                  width: '100%',
+                  cursor: 'pointer',
+                }}>
+                  {name}
+                </Typography>
+              </Link>
             </NextLink>
+            {/*</Scrollbar>*/}
             <Stack spacing={1.5} direction="row" alignItems={'end'} justifyContent={'space-between'}
                    sx={{ width: '100%' }}>
               <Typography variant="caption" sx={{ color: 'text.disabled', mt: 0.5, display: 'block' }}>
@@ -164,26 +176,28 @@ function BookingItem({ item }) {
       </Stack>
 
       <Box sx={{ p: 1, position: 'relative' }}>
-        {roomType && roomType.map(({ title, slug, color }) => {
+        {roomType && roomType.map(({ title, slug }, i) => {
+          let bottom = (i * 25) + 16;
           return <NextLink key={slug} href={`/tag/${slug}`} passHref>
-            <Label
-              variant="filled"
-              color={color}
-              sx={{
-                right: 16,
-                zIndex: 9,
-                bottom: 16,
-                position: 'absolute',
-                textTransform: 'capitalize',
-                cursor: 'pointer',
-              }}
-            >
-              {title}
-            </Label>
+            <a>
+              <Label
+                variant="filled"
+                sx={{
+                  right: 16,
+                  zIndex: 9,
+                  bottom: { bottom },
+                  position: 'absolute',
+                  textTransform: 'capitalize',
+                  cursor: 'pointer',
+                }}
+              >
+                {title}
+              </Label>
+            </a>
           </NextLink>;
         })}
-        <NextLink href={`/photosessions/${category.slug}/${slug}`} passHref>
-          <Image alt={name} src={cover.url} ratio="1/1" sx={{ borderRadius: 1.5 }} />
+        <NextLink href={`/photosessions/${category.slug}/${slug}`}>
+          <a><Image alt={name} src={cover.url} ratio="1/1" sx={{ borderRadius: 1.5 }} /></a>
         </NextLink>
       </Box>
     </Paper>
