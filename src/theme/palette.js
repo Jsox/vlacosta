@@ -71,7 +71,7 @@ const GREY = {
   500_80: alpha('#919EAB', 0.8),
 };
 
-const GRADIENTS = {
+export const GRADIENTS = {
   primary: createGradient(PRIMARY.light, PRIMARY.main),
   info: createGradient(INFO.light, INFO.main),
   success: createGradient(SUCCESS.light, SUCCESS.main),
