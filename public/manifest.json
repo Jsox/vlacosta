@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "\u0424\u043e\u0442\u043e\u0441\u0442\u0443\u0434\u0438\u044f VlaCosta.ru",
+    "name": "Фотостудия VlaCosta.ru",
     "short_name": "VlaCosta",
-    "description": "\u0424\u043e\u0442\u043e\u0441\u0442\u0443\u0434\u0438\u044f \u0438 \u0444\u043e\u0442\u043e\u0441\u0435\u0441\u0441\u0438\u0438 \u0432 \u041d\u043e\u0432\u043e\u0440\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0435",
+    "description": "Заказать фотосессию в Новороссийске, Анапе, Геленджике",
     "icons": [
         {
             "src": "assets/icons/icon-48x48.png",
