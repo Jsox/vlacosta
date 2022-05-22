@@ -69,7 +69,7 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
         title={
           <NextLink href={actionButton.link} passHref>
             <Button variant={'text'}>
-              <Typography variant="h3">{title}</Typography>
+              <Typography sx={{ color: 'error.main' }} variant="h3">{title}</Typography>
             </Button>
           </NextLink>
         }
@@ -101,10 +101,10 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
       <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems="center">
         <Typography variant="subtitle1">{subheader}</Typography>
         <NextLink href={actionButton.link} passHref>
-          <Fab variant="extended" size="small" color="primary" aria-label={actionButton.text}>
+          <Button sx={{mt:1}} variant="contained" color='primary' aria-label={actionButton.text}>
             <Iconify icon={'fa-regular:eye'} width={20} height={20} sx={{ mr: 1 }} />
             {actionButton.text}
-          </Fab>
+          </Button>
         </NextLink>
       </Stack>
     </Box>
@@ -115,7 +115,6 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
 
 function BookingItem({ item }) {
   const { author, place, slug, category, title: name, images, date: bookdAt, coverImage: cover, tags: roomType } = item;
-
   return (
     <Paper sx={{ mx: 1.5, borderRadius: 2, bgcolor: 'background.neutral' }}>
       <Stack spacing={1.5} sx={{ p: 3, pb: 1.5 }}>
@@ -128,6 +127,7 @@ function BookingItem({ item }) {
                   width: '100%',
                   mb: 1,
                   cursor: 'pointer',
+                  color: 'primary.main'
                 }}>
                   {name}
                 </Typography>
