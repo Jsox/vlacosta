@@ -64,7 +64,7 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
   };
 
   return (
-    <Box sx={{ py: 2 }}>
+    <Box sx={{ py: 2, mb: 2 }}>
       <CardHeader
         title={
           <NextLink href={actionButton.link} passHref>
@@ -73,7 +73,12 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
             </Button>
           </NextLink>
         }
-        subheader={text.replace('\\n', ' ')}
+        subheader={<Typography sx={{
+          display: '-webkit-box',
+          overflow: 'hidden',
+          WebkitBoxOrient: 'vertical',
+          WebkitLineClamp: 2,
+        }}>{text.replace('\\n', ' ')}</Typography>}
         action={
           <CarouselArrows
             customIcon={'ic:round-keyboard-arrow-right'}
@@ -88,7 +93,6 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
           '& .MuiCardHeader-action': { alignSelf: 'center' },
         }}
       />
-
       <Slider ref={carouselRef} {...settings}>
         {photosessions.map((item) =>
           (<BookingItem key={item.slug} item={item} />),
@@ -109,24 +113,6 @@ export default function PhotosessionsShowMultiple({ photosessions, title, subhea
 
 // ----------------------------------------------------------------------
 
-// BookingItem.propTypes = {
-//   item: PropTypes.shape({
-//     avatar: PropTypes.object,
-//     bookdAt: PropTypes.instanceOf(Date),
-//     cover: PropTypes.object,
-//     name: PropTypes.string,
-//     person: PropTypes.string,
-//     roomNumber: PropTypes.string,
-//     roomType: PropTypes.array,
-//     images: PropTypes.array,
-//     persons: PropTypes.array,
-//     author: PropTypes.object,
-//     category: PropTypes.object,
-//     slug: PropTypes.string,
-//     place: PropTypes.object,
-//   }),
-// };
-
 function BookingItem({ item }) {
   const { author, place, slug, category, title: name, images, date: bookdAt, coverImage: cover, tags: roomType } = item;
 
@@ -135,22 +121,20 @@ function BookingItem({ item }) {
       <Stack spacing={1.5} sx={{ p: 3, pb: 1.5 }}>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Avatar sx={{ width: '65px', height: '65px' }} alt={author.name} src={author.picture.url} />
-          <Stack sx={{ width: '100%' }} direction="column" justifyContent={'center'} alignItems={'end'}>
-            {/*<Scrollbar sx={{ maxHeight: '3em' }}>*/}
+          <Stack sx={{ width: '100%' }} direction="column" justifyContent={'center'} alignItems={'center'}>
             <NextLink href={`/photosessions/${category.slug}/${slug}`} passHref>
               <Link variant={'text'}>
-                <Typography variant='subtitle1' sx={{
-                  textAlign: 'center',
+                <Typography variant='subtitle1' align={'center'} sx={{
                   width: '100%',
+                  mb: 1,
                   cursor: 'pointer',
                 }}>
                   {name}
                 </Typography>
               </Link>
             </NextLink>
-            {/*</Scrollbar>*/}
             <Stack spacing={1.5} direction="row" alignItems={'end'} justifyContent={'space-between'}
-                   sx={{ width: '100%' }}>
+                   sx={{ width: '100%', px: 1 }}>
               <Typography variant="caption" sx={{ color: 'text.disabled', mt: 0.5, display: 'block' }}>
                 <Iconify icon={'akar-icons:location'} width={12} height={12} /> {place?.location}
               </Typography>
@@ -162,16 +146,17 @@ function BookingItem({ item }) {
         </Stack>
 
         <Stack direction="row" justifyContent={'space-between'} alignItems="center" spacing={3}
-               sx={{ color: 'text.secondary' }}>
+               sx={{ color: 'text.secondary',  px: 1 }}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Iconify icon={'clarity:camera-solid'} width={16} height={16} />
+            <Typography variant="caption">Фотограф: {author.name}</Typography>
+          </Stack>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Iconify icon={'wpf:stack-of-photos'} width={16} height={16} />
             <Typography variant="caption">Фото: {images.length} шт.</Typography>
           </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Iconify icon={'clarity:camera-solid'} width={16} height={16} />
-            <Typography variant="caption">Фотограф: {author.name}</Typography>
-          </Stack>
+
         </Stack>
       </Stack>
 

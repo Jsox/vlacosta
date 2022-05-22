@@ -1,5 +1,4 @@
-
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 // emotion
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
@@ -27,12 +26,11 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content={palette.light.primary.main} />
           <link rel="manifest" href="/manifest.json" />
 
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-
+            href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Play:wght@400;700&display=swap"
+            rel="stylesheet" />
           <meta
             name="description"
             content="Фотограф в Новороссийске, Анапе, Геленджике и окрестностях. Заказать фотосессию."
@@ -42,8 +40,8 @@ export default class MyDocument extends Document {
         </Head>
 
         <body>
-          <Main />
-          <NextScript />
+        <Main />
+        <NextScript />
         </body>
       </Html>
     );

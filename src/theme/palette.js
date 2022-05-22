@@ -2,7 +2,7 @@ import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
-function createGradient(color1, color2) {
+export function createGradient(color1, color2) {
   return `linear-gradient(to bottom, ${color1}, ${color2})`;
 }
 
@@ -71,7 +71,7 @@ const GREY = {
   500_80: alpha('#919EAB', 0.8),
 };
 
-export const GRADIENTS = {
+const GRADIENTS = {
   primary: createGradient(PRIMARY.light, PRIMARY.main),
   info: createGradient(INFO.light, INFO.main),
   success: createGradient(SUCCESS.light, SUCCESS.main),

@@ -1,13 +1,15 @@
 // next
 import NextLink from 'next/link';
 // @mui
-import { styled } from '@mui/material/styles';
+import { styled} from '@mui/material/styles';
 import { Grid, Link, Divider, Container, Typography, Stack } from '@mui/material';
 // routes
 import { PATH_PAGE } from '../../routes/paths';
 // components
 import Logo from '../../components/Logo';
 import SocialsButton from '../../components/SocialsButton';
+import React from 'react';
+import SiteAuthorFooterStr from '../../components/siteAuthorFooterStr';
 
 // ----------------------------------------------------------------------
 
@@ -58,8 +60,7 @@ export default function MainFooter() {
           </Grid>
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
+              <Typography variant="subtitle2" sx={{ pr: { md: 5 } }}>Студия фотографии и фотографы в Новороссийске.</Typography>У нас Вы можете заказать фотосессию и фотографа любого жанра, начиная от свадебной, семейной или детской фотосессии и заканчивая фотосъемкой квартиры для сдачи в аренду, товаров для вайлдберис или открытия магазина.
             </Typography>
 
             <Stack
@@ -95,18 +96,7 @@ export default function MainFooter() {
           </Grid>
         </Grid>
 
-        <Typography
-          component="p"
-          variant="body2"
-          sx={{
-            mt: 10,
-            pb: 5,
-            fontSize: 13,
-            textAlign: { xs: 'center', md: 'left' },
-          }}
-        >
-          © 2021. All rights reserved
-        </Typography>
+        <SiteAuthorFooterStr />
       </Container>
     </RootStyle>
   );
