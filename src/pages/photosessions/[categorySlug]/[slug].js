@@ -83,12 +83,12 @@ export default function Slug({ data }) {
       <AvatarGroup max={4}>
         {persons.length && persons.map(({ name, avatar: { url } }) => {
           return (
-            <Avatar alt={name} sx={{ width: 65, height: 65 }} component={'span'} src={url} variant={'circular'} />);
+            <Avatar key={name} alt={name} sx={{ width: 65, height: 65 }} component={'span'} src={url} variant={'circular'} />);
         })}
       </AvatarGroup>
       <Stack sx={{ width: '100%' }} direction="row" justifyContent={'space-evenly'}>
         {persons.length && persons.map(({ name }, i) => {
-          return <Typography sx={{ ml: 0, color: 'error.main' }} variant={'subtitle1'}>{name}</Typography>;
+          return <Typography  key={name} sx={{ ml: 0, color: 'error.main' }} variant={'subtitle1'}>{name}</Typography>;
         })}
       </Stack>
     </Stack>
