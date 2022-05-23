@@ -28,6 +28,7 @@ const PhotoGallery = ({images, alt = 'Фотография'}) => {
           let cols = getRandomInt(1,2);
           return <ImageListItem key={item.url} cols={cols} rows={rows}>
             <Image
+              key={item.url}
               {...srcset(item.url, 121, rows, cols)}
               alt={item?.title || `${alt} №${i}`}
               title={item?.title || `${alt} №${i}`}
