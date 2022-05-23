@@ -12,7 +12,6 @@ import Image from '../../components/Image';
 import Iconify from '../../components/Iconify';
 import { CarouselArrows } from '../../components/carousel';
 import NextLink from 'next/link';
-import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 

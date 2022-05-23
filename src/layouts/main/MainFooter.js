@@ -9,7 +9,7 @@ import { PATH_PAGE } from '../../routes/paths';
 import Logo from '../../components/Logo';
 import SocialsButton from '../../components/SocialsButton';
 import React from 'react';
-import SiteAuthorFooterStr from '../../components/siteAuthorFooterStr';
+import SiteAuthorFooterStr from '../../components/SiteAuthorFooterStr';
 
 // ----------------------------------------------------------------------
 
@@ -58,9 +58,10 @@ export default function MainFooter() {
           <Grid item xs={12} sx={{ mb: 3 }}>
             <Logo sx={{ mx: { xs: 'auto', md: 'inherit' } }} />
           </Grid>
-          <Grid item xs={8} md={3}>
-            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              <Typography variant="subtitle2" sx={{ pr: { md: 5 } }}>Студия фотографии и фотографы в Новороссийске.</Typography>У нас Вы можете заказать фотосессию и фотографа любого жанра, начиная от свадебной, семейной или детской фотосессии и заканчивая фотосъемкой квартиры для сдачи в аренду, товаров для вайлдберис или открытия магазина.
+          <Grid item xs={8} md={4}>
+            <Typography align="justify" variant="body2" sx={{ pr: { md: 5 } }}>
+              <Typography variant="subtitle2" sx={{ pr: { md: 5 } }}>Студия фотографии и фотографы в Новороссийске.</Typography>
+              У нас Вы можете заказать фотосессию и фотографа любого жанра, начиная от свадебной, семейной или детской фотосессии и заканчивая фотосъемкой квартиры для сдачи в аренду, товаров для вайлдберис или открытия магазина.
             </Typography>
 
             <Stack

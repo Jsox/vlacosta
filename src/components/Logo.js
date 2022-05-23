@@ -15,9 +15,9 @@ const Logo = forwardRef(({ disabledLink = false, sx }, ref) => {
   const PRIMARY_DARK = theme.palette.primary.dark;
 
   const logo = (
-    <Box ref={ref} sx={{ width: 200, height: 40, cursor: 'pointer', ...sx }}>
+    <Box ref={ref} sx={{ mr:1, width: 180, height: 40, cursor: 'pointer', ...sx }}>
       <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-           width="200px" height="40px" viewBox="0 0 1080.000000 215.000000"
+           width="180px" height="40px" viewBox="0 0 1080.000000 215.000000"
            preserveAspectRatio="xMidYMid meet">
 
         <g transform="translate(0.000000,215.000000) scale(0.100000,-0.100000)"

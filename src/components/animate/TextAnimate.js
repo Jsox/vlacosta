@@ -16,9 +16,9 @@ TextAnimate.propTypes = {
 export default function TextAnimate({ text, variants, sx, ...other }) {
   return (
     <Box
-      component={m.h1}
+      component={m.h2}
       sx={{
-        typography: 'h1',
+        typography: 'h3',
         overflow: 'hidden',
         display: 'inline-flex',
         ...sx,

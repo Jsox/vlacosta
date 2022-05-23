@@ -17,7 +17,7 @@ SocialsButton.propTypes = {
 export default function SocialsButton({ initialColor = false, simple = true, links = {}, sx, ...other }) {
   const SOCIALS = [
     {
-      name: 'FaceBook',
+      name: 'FaceBookq',
       icon: 'eva:facebook-fill',
       socialColor: '#1877F2',
       path: links.facebook || '#facebook-link',

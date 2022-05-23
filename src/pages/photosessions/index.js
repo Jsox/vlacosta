@@ -29,7 +29,7 @@ export default function Photosessions({ data }) {
     });
   }
   mdesc = mdesc.substring(0, mdesc.length - 2);
-  const metaDescription = getMetaDescriptionText('Последние примеры фотосессий из категорий: ' + mdesc);
+  const metaDescription = getMetaDescriptionText('Примеры фотосессий из категорий: ' + mdesc);
   return (
     <Page title={`Примеры фотосессий всех направлений нашей Студии`}
           meta={

@@ -3,24 +3,23 @@ import { GraphQLClient } from 'graphql-request';
 export const api = async (query) => {
   try {
     const graphcms = new GraphQLClient(
-    `${process.env.API_ADDRESS}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.API_KEY}`
-      }
-    }
-  );
+      `${process.env.API_ADDRESS}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.API_KEY}`,
+        },
+      },
+    );
 
     const answer = await graphcms.request(`${query}`);
     return answer;
-  }
-  catch(e) {
-    console.log({ERROR: e});
+  } catch (e) {
+    console.log({ ERROR: e });
     return [];
   }
 };
 
-export const photosessions = async () =>{
+export const photosessions = async () => {
   const data = await api(
     `query photosessions {
   categories {
@@ -63,12 +62,14 @@ export const photosessions = async () =>{
         id
       }
       slug
-      persons {
-        name
-        avatar {
-          url(transformation: {document: {output: {format: webp}}})
+        persons {
+          avatar {
+            url(
+              transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}}
+            )
+          }
+          name
         }
-      }
       tags(first: 4) {
         slug
         title
@@ -80,12 +81,12 @@ export const photosessions = async () =>{
     title
   }
 }
-`
+`,
   );
   return data.categories;
-}
+};
 
-export const photosession = async (slug) =>{
+export const photosession = async (slug) => {
   const data = await api(
     `
 {
@@ -98,7 +99,7 @@ export const photosession = async (slug) =>{
         slug
       }
       picture {
-        url
+        url(transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}})
       }
       title
     }
@@ -131,7 +132,9 @@ export const photosession = async (slug) =>{
     }
     updatedAt
     coverImage {
-      url
+            url(
+        transformation: {image: {resize: {height: 560, width: 1920, fit: crop}}, document: {output: {format: webp}}}
+      )
     }
     publishedAt
     slug
@@ -144,13 +147,28 @@ export const photosession = async (slug) =>{
         text
       }
     }
+    place {
+      location
+      map {
+        latitude
+        longitude
+      }
+    }
+        persons {
+          avatar {
+            url(
+              transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}}
+            )
+          }
+          name
+        }
   }
-}`
+}`,
   );
   return data.photosession;
-}
+};
 
-export const photosessionsPaths = async () =>{
+export const photosessionsPaths = async () => {
   const { photosessions } = await api(
     `query photosessionsPaths {
   photosessions {
@@ -159,21 +177,21 @@ export const photosessionsPaths = async () =>{
       slug
     }
   }
-}`
+}`,
   );
   return photosessions || [];
-}
-export const categoriesPaths = async () =>{
+};
+export const categoriesPaths = async () => {
   const { categories } = await api(
     `    {
   categories {
     slug
   }
-    }`
+    }`,
   );
   return categories || [];
-}
-export const category = async (slug) =>{
+};
+export const category = async (slug) => {
   const { category } = await api(
     `query category {
   category(where: {slug: "${slug}"}) {
@@ -211,7 +229,7 @@ export const category = async (slug) =>{
     slug
     title
   }
-}`
+}`,
   );
   return category || [];
-}
+};

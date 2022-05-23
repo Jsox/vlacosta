@@ -6,20 +6,19 @@ const SiteAuthorFooterStr = () => {
   const theme = useTheme();
   return (
     <><Typography
-      align='center'
       component="p"
       variant="body2"
       sx={{
         mt: 10,
         mb: 1.5,
         fontSize: 13,
-        textAlign: { xs: 'center', md: 'left' },
+        textAlign: { xs: 'center', md: 'center' },
       }}
     >
       © 2020-2022. Все права защищены. Любые материалы с данного сайта запрещается копировать и использовать без ведома
       правообладателя.
     </Typography>
-      <Typography align={'center'} sx={{ pb: 5 }} color="primary" variant={'subtitle1'}>Сайт создан Компанией
+      <Typography align={'center'} sx={{ pb: 5 }} color="primary" variant={'body1'}>Сайт создан Компанией
         <Button sx={{
           color: 'white',
           px: 2,
