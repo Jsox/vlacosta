@@ -14,7 +14,8 @@ import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import DangerSetHtml from '../../../utils/DangerSetHtml';
+import TypographyDangerSetHtml from '../../../utils/dangerSetHtml';
+import PhotoGallery from '../../../components/photosessions/PhotoGallery';
 
 const RootStyle = styled('div')(({ theme }) => ({
   minHeight: '100%',
@@ -121,7 +122,8 @@ export default function Slug({ data }) {
               },
             ]}
           />
-          <Typography component={'span'} variant={'h5'}><DangerSetHtml html={html} /></Typography>
+          <TypographyDangerSetHtml sx={{ mb: 2 }} variant={'h5'} html={html} />
+          <PhotoGallery images={images} alt={title} />
         </Container>
       </RootStyle>
     </Page>
