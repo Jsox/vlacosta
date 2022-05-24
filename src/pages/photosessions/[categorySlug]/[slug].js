@@ -38,6 +38,7 @@ export default function Slug({ data }) {
     date,
     persons,
     tags,
+    excerpt,
     coverImage,
     content: {
       html,
@@ -77,18 +78,19 @@ export default function Slug({ data }) {
     </>} effect={'inRight'} />
   </>;
   let center = <>
-    {persons.length && <AnimatedText variant={'h4'} text={`В фотосессии учавствовали:`} effect={'inUp'} />}
+    {persons.length && <AnimatedText variant={'h4'} text={`Фотосъемка для`} effect={'inUp'} />}
     <Stack sx={{ mt: 2, width: '100%' }} direction="column" justifyContent={'space-between'} alignItems="center"
            spacing={2}>
       <AvatarGroup max={4}>
         {persons.length && persons.map(({ name, avatar: { url } }) => {
           return (
-            <Avatar key={name} alt={name} sx={{ width: 65, height: 65 }} component={'span'} src={url} variant={'circular'} />);
+            <Avatar key={name} alt={name} sx={{ width: 65, height: 65 }} component={'span'} src={url}
+                    variant={'circular'} />);
         })}
       </AvatarGroup>
       <Stack sx={{ width: '100%' }} direction="row" justifyContent={'space-evenly'}>
         {persons.length && persons.map(({ name }, i) => {
-          return <Typography  key={name} sx={{ ml: 0, color: 'error.main' }} variant={'subtitle1'}>{name}</Typography>;
+          return <Typography key={name} sx={{ ml: 0, color: 'error.main' }} variant={'subtitle1'}>{name}</Typography>;
         })}
       </Stack>
     </Stack>
@@ -100,11 +102,13 @@ export default function Slug({ data }) {
   };
 
   return (
-    <Page title={`${title}`} {...meta}>
-      <PageHero blocks={blocks} header={title} backgroundimage={coverImage.url} />
+    <Page title={`${title}, ${fToNow(date)}, ${place.location}`} {...meta}>
+      <PageHero blocks={blocks} header={`${title}, ${fToNow(date)}, ${place.location}`}
+                backgroundimage={coverImage.url} />
       <RootStyle>
         <Container>
           <HeaderBreadcrumbs
+            heading={`${title}`}
             links={[
               {
                 name: 'Главная',
@@ -122,7 +126,8 @@ export default function Slug({ data }) {
               },
             ]}
           />
-          <TypographyDangerSetHtml sx={{ mb: 2 }} variant={'h5'} html={html} />
+          <TypographyDangerSetHtml sx={{ fontWeight: 400, mb: 2 }} variant={'h3'} html={excerpt} />
+          <TypographyDangerSetHtml sx={{ fontWeight: 400, mb: { xs: 2, md: 4 } }} variant={'h5'} html={html} />
           <PhotoGallery images={images} alt={title} />
         </Container>
       </RootStyle>
@@ -171,7 +176,7 @@ export function AnimatedText({ variant = 'h5', text, effect, ...other }) {
       <Typography
         variant={variant}
         sx={{
-          mt: { xs: 1, md: 5 },
+          mt: { xs: 1, md: 2 },
           color: 'common.white',
           fontWeight: 'fontWeightMedium',
         }}

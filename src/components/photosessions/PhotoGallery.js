@@ -1,42 +1,73 @@
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import Image from '../Image';
 import { getRandomInt } from '../../utils/formatNumber';
+import { useState } from 'react';
+import Image from '@graphcms/react-image';
+import Masonry from 'react-masonry-css';
+import styles from './PhotoGallery.module.css';
+import LightboxModal from '../LightboxModal';
 
-function srcset(image, size, rows = 1, cols = 1) {
-  return {
-    src: `${image}`,
-    srcSet: `${image}`,
-    // src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-    // srcSet: `${image}?w=${size * cols}&h=${
-    //   size * rows
-    // }&fit=crop&auto=format&dpr=2 2x`,
+const PhotoGallery = ({ images, alt = 'Фотография' }) => {
+  const breakpointColumnsObj = {
+    default: 3,
+    1100: 3,
+    700: 2,
+    500: 2,
   };
-}
+  const [openLightbox, setOpenLightbox] = useState(false);
 
-const PhotoGallery = ({images, alt = 'Фотография'}) => {
-  return (
-      <ImageList
-        sx={{ width: '100%', height: 'auto' }}
-        variant="masonry"
-        cols={3}
-        // rowHeight={120}
-        // rowHeight={{ xs: 50, md:100, lg: 200 }}
-      >
+  const [selectedImage, setSelectedImage] = useState(0);
+
+  const imagesLightbox = images.map(({ url: _image }) => _image);
+  const handleOpenLightbox = (url) => {
+    const selectedImage = imagesLightbox.findIndex((index) => index === url);
+    setOpenLightbox(true);
+    setSelectedImage(selectedImage);
+  };
+
+  return (<>
+      <LightboxModal
+        images={imagesLightbox}
+        mainSrc={imagesLightbox[selectedImage]}
+        photoIndex={selectedImage}
+        setPhotoIndex={setSelectedImage}
+        isOpen={openLightbox}
+        onCloseRequest={() => setOpenLightbox(false)}
+      />
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className={styles.photoGallery}
+        columnClassName={styles.photoGalleryColumn}>
+
         {images.map((item, i) => {
-          let rows = getRandomInt(1,2);
-          let cols = getRandomInt(1,2);
-          return <ImageListItem key={item.url} cols={cols} rows={rows}>
+          let rows = getRandomInt(1, 2);
+          let cols = getRandomInt(1, 2);
+
+          const [loaded, setLoaded] = useState(false);
+          const asset = {
+            handle: item.handle,
+            width: item.width,
+            height: item.height,
+            fit: 'max',
+          };
+
+          return <div onClick={() => handleOpenLightbox(item.url)}>
             <Image
-              key={item.url}
-              {...srcset(item.url, 121, rows, cols)}
-              alt={item?.title || `${alt} №${i}`}
-              title={item?.title || `${alt} №${i}`}
-              loading="lazy"
+              transforms={[
+                'quality=value:85',
+              ]}
+              maxWidth={389}
+              position={'absolute'}
+              withWebp={true}
+              fit='max'
+              key={item.handle}
+              image={asset}
+              alt={item?.title || `${alt} | Фотография №${i}`}
+              title={item?.title || `${alt} | №${i}`}
+              sx={{ borderRadius: 1, shadow: 3 }}
             />
-          </ImageListItem>;
+          </div>;
         })}
-      </ImageList>
+      </Masonry>
+    </>
   );
 };
 

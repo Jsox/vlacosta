@@ -123,7 +123,11 @@ export const photosession = async (slug) => {
     date
     excerpt
     images {
+      id
       url(transformation: {document: {output: {format: webp}}, image: {resize: {fit: max, width: 1920, height: 1080}}})
+      width
+      height
+      handle
     }
     seo {
       title

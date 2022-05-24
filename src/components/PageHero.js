@@ -35,7 +35,7 @@ const PageHero = ({ blocks: { left = '', right = '', center = '' } = {}, header,
     <RootStyle backgroundimage={backgroundimage}>
       <Container component={MotionContainer} sx={{ position: 'relative', height: '100%' }}>
         <ContentStyle>
-          <Typography variant={'h1'} sx={{ color: 'primary.light' }}>{header}</Typography>
+          <Typography component={'h1'} variant={'h2'} sx={{ color: 'primary.light' }}>{header}</Typography>
           <Stack sx={{ flexDirection: { md: 'row', xs: 'column' } }} spacing={1} justifyContent={'space-between'}>
             <Box sx={{
               width: { xs: '100%', sm: '33.3%' },
