@@ -103,7 +103,7 @@ export default function Slug({ data }) {
 
   return (
     <Page title={`${title}, ${fToNow(date)}, ${place.location}`} {...meta}>
-      <PageHero blocks={blocks} header={`${title}, ${fToNow(date)}, ${place.location}`}
+      <PageHero blocks={blocks} header={`${title}`}
                 backgroundimage={coverImage.url} />
       <RootStyle>
         <Container>

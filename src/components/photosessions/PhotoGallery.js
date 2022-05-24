@@ -4,6 +4,7 @@ import Image from '@graphcms/react-image';
 import Masonry from 'react-masonry-css';
 import styles from './PhotoGallery.module.css';
 import LightboxModal from '../LightboxModal';
+import Box from '@mui/material/Box';
 
 const PhotoGallery = ({ images, alt = 'Фотография' }) => {
   const breakpointColumnsObj = {
@@ -41,7 +42,6 @@ const PhotoGallery = ({ images, alt = 'Фотография' }) => {
           let rows = getRandomInt(1, 2);
           let cols = getRandomInt(1, 2);
 
-          const [loaded, setLoaded] = useState(false);
           const asset = {
             handle: item.handle,
             width: item.width,
@@ -49,7 +49,7 @@ const PhotoGallery = ({ images, alt = 'Фотография' }) => {
             fit: 'max',
           };
 
-          return <div onClick={() => handleOpenLightbox(item.url)}>
+          return <Box key={item.handle} sx={{cursor: 'pointer'}} onClick={() => handleOpenLightbox(item.url)}>
             <Image
               transforms={[
                 'quality=value:85',
@@ -58,13 +58,12 @@ const PhotoGallery = ({ images, alt = 'Фотография' }) => {
               position={'absolute'}
               withWebp={true}
               fit='max'
-              key={item.handle}
               image={asset}
               alt={item?.title || `${alt} | Фотография №${i}`}
               title={item?.title || `${alt} | №${i}`}
               sx={{ borderRadius: 1, shadow: 3 }}
             />
-          </div>;
+          </Box>;
         })}
       </Masonry>
     </>
