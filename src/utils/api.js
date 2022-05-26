@@ -166,6 +166,21 @@ export const photosession = async (slug) => {
           }
           name
         }
+            reviews {
+      createdAt
+      id
+      person {
+        avatar {
+          url(transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 64, width: 64}}})
+        }
+        name
+      }
+      rating
+      helpful
+      comment{
+        html
+      }
+    }
   }
 }`,
   );

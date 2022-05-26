@@ -16,6 +16,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import TypographyDangerSetHtml from '../../../utils/dangerSetHtml';
 import PhotoGallery from '../../../components/photosessions/PhotoGallery';
+import ProductDetailsReviewList from '../../../components/ProductDetailsReviewList';
 
 const RootStyle = styled('div')(({ theme }) => ({
   minHeight: '100%',
@@ -38,6 +39,7 @@ export default function Slug({ data }) {
     date,
     persons,
     tags,
+    reviews,
     excerpt,
     coverImage,
     content: {
@@ -127,7 +129,8 @@ export default function Slug({ data }) {
             ]}
           />
           <TypographyDangerSetHtml sx={{ fontWeight: 400, mb: 2 }} variant={'h3'} html={excerpt} />
-          <TypographyDangerSetHtml sx={{ fontWeight: 400, mb: { xs: 2, md: 4 } }} variant={'h5'} html={html} />
+          <TypographyDangerSetHtml sx={{ fontWeight: 400, mb: { xs: 2, md: 4 } }} variant={'h5'} >{html}</TypographyDangerSetHtml>
+          <ProductDetailsReviewList reviews={reviews} />
           <PhotoGallery images={images} alt={title} />
         </Container>
       </RootStyle>

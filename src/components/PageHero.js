@@ -13,7 +13,7 @@ const RootStyle = styled('div')(({ backgroundimage, theme }) => ({
   backgroundPosition: 'center',
   backgroundImage:
     `url(/assets/overlay.svg)${backgroundimage && ', url(' + backgroundimage})`,
-  padding: theme.spacing(10, 0),
+  padding:  theme.spacing(10, 0, 2),
   [theme.breakpoints.up('md')]: {
     height: 560,
     padding: 0,
@@ -36,7 +36,7 @@ const PageHero = ({ blocks: { left = '', right = '', center = '' } = {}, header,
       <Container component={MotionContainer} sx={{ position: 'relative', height: '100%' }}>
         <ContentStyle>
           <Typography component={'h1'} variant={'h2'} sx={{ color: 'primary.light' }}>{header}</Typography>
-          <Stack sx={{ flexDirection: { md: 'row', xs: 'column' } }} spacing={1} justifyContent={'space-between'}>
+          <Stack sx={{ paddingTop: 3, flexDirection: { md: 'row', xs: 'column' } }} spacing={1} justifyContent={'space-between'}>
             <Box sx={{
               width: { xs: '100%', sm: '33.3%' },
               textAlign: { md: 'start', xs: 'center' },
