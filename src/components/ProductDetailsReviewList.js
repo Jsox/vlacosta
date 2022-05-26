@@ -33,8 +33,9 @@ function ReviewItem({ review }) {
     person,
     rating,
     comment,
+    createdAt,
     helpful: nowHelpful,
-    createdAt: postedAt,
+    date: postedAt,
     isPurchased = true,
   } = review;
 
@@ -80,7 +81,7 @@ function ReviewItem({ review }) {
               {person?.name || 'Пользователь'}
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
-              {fDate(postedAt)} ({fToNow(postedAt)})
+              {fDate((postedAt || createdAt))} ({fToNow((postedAt || createdAt))})
             </Typography>
           </Box>
         </Box>

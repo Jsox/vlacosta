@@ -28,7 +28,10 @@ Slug.getLayout = function getLayout(page) {
   return <Layout variant='main'>{page}</Layout>;
 };
 
-export default function Slug({ data }) {
+export default function Slug({ data = null }) {
+  if (!data)
+    return (null);
+
   const {
     title,
     content,
@@ -84,9 +87,9 @@ export default function Slug({ data }) {
     <Stack sx={{ mt: 2, width: '100%' }} direction="column" justifyContent={'space-between'} alignItems="center"
            spacing={2}>
       <AvatarGroup max={4}>
-        {persons.length && persons.map(({ name, avatar: { url } }) => {
+        {persons.length && persons.map(({ name, avatar }) => {
           return (
-            <Avatar key={name} alt={name} sx={{ width: 65, height: 65 }} component={'span'} src={url}
+            <Avatar key={name} alt={name} sx={{ width: 65, height: 65 }} component={'span'} src={avatar?.url || ''}
                     variant={'circular'} />);
         })}
       </AvatarGroup>
@@ -129,7 +132,8 @@ export default function Slug({ data }) {
             ]}
           />
           <TypographyDangerSetHtml sx={{ fontWeight: 400, mb: 2 }} variant={'h3'} html={excerpt} />
-          <TypographyDangerSetHtml sx={{ fontWeight: 400, mb: { xs: 2, md: 4 } }} variant={'h5'} >{html}</TypographyDangerSetHtml>
+          <TypographyDangerSetHtml sx={{ fontWeight: 400, mb: { xs: 2, md: 4 } }}
+                                   variant={'h5'}>{html}</TypographyDangerSetHtml>
           <ProductDetailsReviewList reviews={reviews} />
           <PhotoGallery images={images} alt={title} />
         </Container>

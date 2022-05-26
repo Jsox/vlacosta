@@ -78,5 +78,5 @@ export const defaultSettings = {
 
 export const CONFIG = {
   SITE_NAME_SHORT:'VlaCosta',
-  SITE_NAME:'Фотосессии в Новороссийске',
+  SITE_NAME:'Фотограф в Новороссийске',
 }

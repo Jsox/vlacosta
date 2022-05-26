@@ -166,8 +166,9 @@ export const photosession = async (slug) => {
           }
           name
         }
-            reviews {
+    reviews {
       createdAt
+      date
       id
       person {
         avatar {
@@ -219,36 +220,48 @@ export const category = async (slug) => {
       text
     }
     image {
-      url
+      url(
+        transformation: {document: {output: {format: webp}}, image: {resize: {fit: crop, height: 1080, width: 1980}}}
+      )
     }
-    photosessions(first: 3, orderBy: date_DESC) {
+    photosessions(orderBy: date_DESC) {
       author {
         name
         picture {
-          url
+          url(
+            transformation: {document: {output: {format: webp}}, image: {resize: {height: 64, width: 64}}}
+          )
         }
-        title
-      }
-      content {
-        text
-        html
       }
       coverImage {
-        url
+        url(
+          transformation: {document: {output: {format: webp}}, image: {resize: {fit: max, height: 358, width: 358}}}
+        )
       }
-      images(first: 5) {
-        url
+      date
+      excerpt
+      images {
+        id
       }
       slug
       tags {
+        id
         slug
         title
       }
+      category {
+        slug
+      }
+      place {
+        location
+      }
+      title
     }
     slug
     title
   }
-}`,
+}
+`,
   );
   return category || [];
 };
