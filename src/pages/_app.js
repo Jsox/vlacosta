@@ -41,7 +41,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 // redux
-import { store, persistor } from '../redux/store';
+import { persistor, store } from '../redux/store';
 // utils
 import { getSettings } from '../utils/settings';
 // contexts
@@ -59,15 +59,6 @@ import NotistackProvider from '../components/NotistackProvider';
 import ThemeLocalization from '../components/ThemeLocalization';
 import MotionLazyContainer from '../components/animate/MotionLazyContainer';
 
-// Check our docs
-// https://docs-minimals.vercel.app/authentication/ts-version
-
-import { AuthProvider } from '../contexts/JWTContext';
-// import { AuthProvider } from '../contexts/Auth0Context';
-// import { AuthProvider } from '../contexts/FirebaseContext';
-// import { AuthProvider } from '../contexts/AwsCognitoContext';
-
-// ----------------------------------------------------------------------
 
 MyApp.propTypes = {
   Component: PropTypes.func,
@@ -86,34 +77,32 @@ export default function MyApp(props) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
-      <AuthProvider>
-        <ReduxProvider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <CollapseDrawerProvider>
-                <SettingsProvider defaultSettings={settings}>
-                  <ThemeProvider>
-                    <NotistackProvider>
-                      <MotionLazyContainer>
-                        <ThemeColorPresets>
-                          <ThemeLocalization>
-                            <RtlLayout>
-                              <ChartStyle />
-                              <Settings />
-                              <ProgressBar />
-                              {getLayout(<Component {...pageProps} />)}
-                            </RtlLayout>
-                          </ThemeLocalization>
-                        </ThemeColorPresets>
-                      </MotionLazyContainer>
-                    </NotistackProvider>
-                  </ThemeProvider>
-                </SettingsProvider>
-              </CollapseDrawerProvider>
-            </LocalizationProvider>
-          </PersistGate>
-        </ReduxProvider>
-      </AuthProvider>
+      <ReduxProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <CollapseDrawerProvider>
+              <SettingsProvider defaultSettings={settings}>
+                <ThemeProvider>
+                  <NotistackProvider>
+                    <MotionLazyContainer>
+                      <ThemeColorPresets>
+                        <ThemeLocalization>
+                          <RtlLayout>
+                            <ChartStyle />
+                            <Settings />
+                            <ProgressBar />
+                            {getLayout(<Component {...pageProps} />)}
+                          </RtlLayout>
+                        </ThemeLocalization>
+                      </ThemeColorPresets>
+                    </MotionLazyContainer>
+                  </NotistackProvider>
+                </ThemeProvider>
+              </SettingsProvider>
+            </CollapseDrawerProvider>
+          </LocalizationProvider>
+        </PersistGate>
+      </ReduxProvider>
     </>
   );
 }

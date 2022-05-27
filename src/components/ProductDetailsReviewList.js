@@ -69,6 +69,7 @@ function ReviewItem({ review }) {
         >
           <Avatar
             src={person?.avatar?.url}
+            alt={person?.name || 'Пользователь'}
             sx={{
               mr: { xs: 2, sm: 0 },
               mb: { sm: 2 },

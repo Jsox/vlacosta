@@ -1,10 +1,9 @@
 // next
 import NextLink from 'next/link';
 // @mui
-import { styled} from '@mui/material/styles';
-import { Grid, Link, Divider, Container, Typography, Stack } from '@mui/material';
-// routes
-import { PATH_PAGE } from '../../routes/paths';
+import { styled } from '@mui/material/styles';
+import { Container, Divider, Grid, Link, Stack, Typography } from '@mui/material';
+
 // components
 import Logo from '../../components/Logo';
 import SocialsButton from '../../components/SocialsButton';
@@ -17,9 +16,9 @@ const LINKS = [
   {
     headline: 'Minimal',
     children: [
-      { name: 'About us', href: PATH_PAGE.about },
-      { name: 'Contact us', href: PATH_PAGE.contact },
-      { name: 'FAQs', href: PATH_PAGE.faqs },
+      // { name: 'About us', href: PATH_PAGE.about },
+      // { name: 'Contact us', href: PATH_PAGE.contact },
+      // { name: 'FAQs', href: PATH_PAGE.faqs },
     ],
   },
   {
@@ -60,8 +59,11 @@ export default function MainFooter() {
           </Grid>
           <Grid item xs={8} md={4}>
             <Typography align="justify" variant="body2" sx={{ pr: { md: 5 } }}>
-              <Typography variant="subtitle2" sx={{ pr: { md: 5 } }}>Студия фотографии и фотографы в Новороссийске.</Typography>
-              У нас Вы можете заказать фотосессию и фотографа любого жанра, начиная от свадебной, семейной или детской фотосессии и заканчивая фотосъемкой квартиры для сдачи в аренду, товаров для вайлдберис или открытия магазина.
+              <Typography variant="subtitle2" sx={{ pr: { md: 5 } }}>Студия фотографии и фотографы в
+                Новороссийске.</Typography>
+              У нас Вы можете заказать фотосессию и фотографа любого жанра, начиная от свадебной, семейной или детской
+              фотосессии и заканчивая фотосъемкой квартиры для сдачи в аренду, товаров для вайлдберис или открытия
+              магазина.
             </Typography>
 
             <Stack
