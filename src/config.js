@@ -1,3 +1,5 @@
+export const MAPBOX_API = process.env.MAPBOX;
+
 // ROOT PATH AFTER LOGIN SUCCESSFUL
 export const PATH_AFTER_LOGIN = '/'; // as '/dashboard/app'
 
