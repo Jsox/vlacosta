@@ -1,10 +1,11 @@
-import { getRandomInt } from '../../utils/formatNumber';
 import { useState } from 'react';
 import Image from '@graphcms/react-image';
 import Masonry from 'react-masonry-css';
 import styles from './PhotoGallery.module.css';
 import LightboxModal from '../LightboxModal';
 import Box from '@mui/material/Box';
+import { m } from 'framer-motion';
+import FadeInWhenVisible from '../animate/ShowThenInView';
 
 const PhotoGallery = ({ images, alt = 'Фотография' }) => {
   const breakpointColumnsObj = {
@@ -39,9 +40,6 @@ const PhotoGallery = ({ images, alt = 'Фотография' }) => {
         columnClassName={styles.photoGalleryColumn}>
 
         {images.map((item, i) => {
-          let rows = getRandomInt(1, 2);
-          let cols = getRandomInt(1, 2);
-
           const asset = {
             handle: item.handle,
             width: item.width,
@@ -49,21 +47,29 @@ const PhotoGallery = ({ images, alt = 'Фотография' }) => {
             fit: 'max',
           };
 
-          return <Box key={item.handle} sx={{cursor: 'pointer'}} onClick={() => handleOpenLightbox(item.url)}>
-            <Image
-              transforms={[
-                'quality=value:85',
-              ]}
-              maxWidth={389}
-              position={'absolute'}
-              withWebp={true}
-              fit='max'
-              image={asset}
-              alt={item?.title || `${alt} | Фотография №${i}`}
-              title={item?.title || `${alt} | №${i}`}
-              sx={{ borderRadius: 1, shadow: 3 }}
-            />
-          </Box>;
+          return <m.div
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+            key={item.handle}
+          >
+            <Box sx={{ cursor: 'pointer' }} onClick={() => handleOpenLightbox(item.url)}>
+              <FadeInWhenVisible duration={0.4}>
+                <Image
+                  transforms={[
+                    'quality=value:85',
+                  ]}
+                  maxWidth={389}
+                  position={'absolute'}
+                  withWebp={true}
+                  fit='max'
+                  image={asset}
+                  alt={item?.title || `${alt} | Фотография №${i}`}
+                  title={item?.title || `${alt} | №${i}`}
+                  sx={{ border: '1px solid white', borderRadius: 1, shadow: 3 }}
+                />
+              </FadeInWhenVisible>
+            </Box>
+          </m.div>;
         })}
       </Masonry>
     </>

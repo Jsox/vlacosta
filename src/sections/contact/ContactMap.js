@@ -9,8 +9,6 @@ import { useTheme, styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 // _mock
 import { _mapContact } from '../../_mock';
-// config
-import { MAPBOX_API } from '../../config';
 // components
 import Iconify from '../../components/Iconify';
 import { MapControlPopup, MapControlMarker, MapControlScale, MapControlNavigation } from '../../components/map';
@@ -40,16 +38,16 @@ export default function ContactMap() {
   const [viewport, setViewport] = useState({
     latitude: 12,
     longitude: 42,
-    zoom: 2,
+    zoom: 12,
   });
-
+  // console.log({ MAPBOX_API:MAPBOX_API });
   return (
     <RootStyle>
       <MapGL
         {...viewport}
         onViewportChange={setViewport}
         mapStyle={`mapbox://styles/mapbox/${isLight ? 'light' : 'dark'}-v10`}
-        mapboxApiAccessToken={MAPBOX_API}
+        mapboxApiAccessToken={process.env.MAPBOX}
         width="100%"
         height="100%"
       >

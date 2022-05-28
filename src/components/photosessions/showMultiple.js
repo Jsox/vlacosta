@@ -14,7 +14,7 @@ import { CarouselArrows } from '../../components/carousel';
 import NextLink from 'next/link';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import PhotoSessionCard from '../PhotoSessionCard';
+import PhotoSessionCard from './PhotoSessionCard';
 
 // ----------------------------------------------------------------------
 

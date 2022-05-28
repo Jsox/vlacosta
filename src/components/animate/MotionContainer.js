@@ -13,11 +13,11 @@ MotionContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default function MotionContainer({ animate, action = false, children, ...other }) {
+export default function MotionContainer({ animate, action = false, children, component = 'div', ...other }) {
   if (action) {
     return (
       <Box
-        component={m.div}
+        component={m[component]}
         initial={false}
         animate={animate ? 'animate' : 'exit'}
         variants={varContainer()}
@@ -29,7 +29,7 @@ export default function MotionContainer({ animate, action = false, children, ...
   }
 
   return (
-    <Box component={m.div} initial="initial" animate="animate" exit="exit" variants={varContainer()} {...other}>
+    <Box component={m[component]} initial="initial" animate="animate" exit="exit" variants={varContainer()} {...other}>
       {children}
     </Box>
   );

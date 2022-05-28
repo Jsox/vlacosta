@@ -8,6 +8,7 @@ import useSettings from '../../hooks/useSettings';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import PhotosessionsShowMultiple from '../../components/photosessions/showMultiple';
 import getMetaDescriptionText from '../../utils/getMetaDescriptionText';
+import SetHead from '../../utils/SetHead';
 
 const RootStyle = styled('div')(({ theme }) => ({
   minHeight: '100%',
@@ -31,16 +32,10 @@ export default function Photosessions({ data }) {
   mdesc = mdesc.substring(0, mdesc.length - 2);
   const metaDescription = getMetaDescriptionText('Примеры фотосессий из категорий: ' + mdesc);
   return (
-    <Page title={`Примеры фотосессий всех направлений нашей Студии`}
-          meta={
-            <meta
-              name="description"
-              content={metaDescription}
-            />
-          }>
+    <Page>
+      <SetHead title={'Примеры фотосессий всех направлений нашей Студии'} description={metaDescription} />
       <RootStyle>
         <Container maxWidth={themeStretch ? false : 'lg'}>
-
           <HeaderBreadcrumbs
             heading="Крайние фотосессии"
             links={[

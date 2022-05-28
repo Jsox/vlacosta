@@ -1,7 +1,8 @@
 import { CONFIG } from '../config';
+import cutText from './cutText';
 
-export default function getMetaDescriptionText(text){
-  let addon = ' | ' + CONFIG.SITE_NAME_SHORT;
-  let count = addon.length;
-  return text.slice(0, 255 - count) + addon;
+export default function getMetaDescriptionText(text, added = ''){
+  let addon = ' | ' + CONFIG.SITE_NAME_SHORT + added;
+  let cuted = cutText(text, 160 - addon.length);
+  return cuted + addon;
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 // @mui
 import { Avatar, Box, Button, List, ListItem, Pagination, Rating, Typography } from '@mui/material';
 // utils
@@ -7,7 +7,7 @@ import { fShortenNumber } from '../utils/formatNumber';
 // components
 import Iconify from './Iconify';
 import TypographyDangerSetHtml from '../utils/dangerSetHtml';
-
+import FadeInWhenVisible from './animate/ShowThenInView';
 // ----------------------------------------------------------------------
 
 export default function ProductDetailsReviewList({ reviews = [] }) {
@@ -16,7 +16,9 @@ export default function ProductDetailsReviewList({ reviews = [] }) {
     <Box sx={{ pt: 3, px: 2, pb: 5 }}>
       <List disablePadding>
         {reviews.map((review) => (
-          <ReviewItem key={review.id} review={review} />
+          <FadeInWhenVisible key={review.id}>
+            <ReviewItem review={review} />
+          </FadeInWhenVisible>
         ))}
       </List>
       {reviews.length > 10 && <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -46,92 +48,91 @@ function ReviewItem({ review }) {
     setHelpfuls((prev) => (!prev));
     isHelpful ? setHelpful(helpful - 1) : setHelpful(helpful + 1);
   };
+
   return (
-    <>
-      <ListItem
-        disableGutters
+    <ListItem
+      disableGutters
+      sx={{
+        mb: 5,
+        alignItems: 'flex-start',
+        flexDirection: { xs: 'column', sm: 'row' },
+      }}
+    >
+      <Box
         sx={{
-          mb: 5,
-          alignItems: 'flex-start',
-          flexDirection: { xs: 'column', sm: 'row' },
+          mr: 2,
+          display: 'flex',
+          alignItems: 'center',
+          mb: { xs: 2, sm: 0 },
+          minWidth: { xs: 160, md: 240 },
+          textAlign: { sm: 'center' },
+          flexDirection: { sm: 'column' },
         }}
       >
+        <Avatar
+          src={person?.avatar?.url}
+          alt={person?.name || 'Пользователь'}
+          sx={{
+            mr: { xs: 2, sm: 0 },
+            mb: { sm: 2 },
+            width: { md: 64 },
+            height: { md: 64 },
+          }}
+        />
+        <Box>
+          <Typography variant="subtitle2" noWrap>
+            {person?.name || 'Пользователь'}
+          </Typography>
+          <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
+            {fDate((postedAt || createdAt))}<br />({fToNow((postedAt || createdAt))})
+          </Typography>
+        </Box>
+      </Box>
+
+      <div>
+        <Rating size="small" value={rating} precision={0.1} readOnly />
+
+        {isPurchased && (
+          <Typography
+            variant="caption"
+            sx={{
+              my: 1,
+              display: 'flex',
+              alignItems: 'center',
+              color: 'primary.main',
+            }}
+          >
+            <Iconify icon={'ic:round-verified'} width={16} height={16} />
+            &nbsp;Заказчик
+          </Typography>
+        )}
+
+        <TypographyDangerSetHtml variant="body2">{comment.html}</TypographyDangerSetHtml>
+
         <Box
           sx={{
-            mr: 2,
+            mt: 1,
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
-            mb: { xs: 2, sm: 0 },
-            minWidth: { xs: 160, md: 240 },
-            textAlign: { sm: 'center' },
-            flexDirection: { sm: 'column' },
           }}
         >
-          <Avatar
-            src={person?.avatar?.url}
-            alt={person?.name || 'Пользователь'}
-            sx={{
-              mr: { xs: 2, sm: 0 },
-              mb: { sm: 2 },
-              width: { md: 64 },
-              height: { md: 64 },
-            }}
-          />
-          <Box>
-            <Typography variant="subtitle2" noWrap>
-              {person?.name || 'Пользователь'}
-            </Typography>
-            <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
-              {fDate((postedAt || createdAt))} ({fToNow((postedAt || createdAt))})
-            </Typography>
-          </Box>
-        </Box>
-
-        <div>
-          <Rating size="small" value={rating} precision={0.1} readOnly />
-
-          {isPurchased && (
-            <Typography
-              variant="caption"
-              sx={{
-                my: 1,
-                display: 'flex',
-                alignItems: 'center',
-                color: 'primary.main',
-              }}
-            >
-              <Iconify icon={'ic:round-verified'} width={16} height={16} />
-              &nbsp;Заказчик
+          {!isHelpful && (
+            <Typography variant="body2" sx={{ mr: 1 }}>
+              Нравится?
             </Typography>
           )}
 
-          <TypographyDangerSetHtml variant="body2">{comment.html}</TypographyDangerSetHtml>
-
-          <Box
-            sx={{
-              mt: 1,
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-            }}
+          <Button
+            size="small"
+            color="inherit"
+            startIcon={<Iconify icon={!isHelpful ? 'ic:round-thumb-up' : 'eva:checkmark-fill'} />}
+            onClick={handleClickHelpful}
           >
-            {!isHelpful && (
-              <Typography variant="body2" sx={{ mr: 1 }}>
-                Нравится?
-              </Typography>
-            )}
-
-            <Button
-              size="small"
-              color="inherit"
-              startIcon={<Iconify icon={!isHelpful ? 'ic:round-thumb-up' : 'eva:checkmark-fill'} />}
-              onClick={handleClickHelpful}
-            >
-              {isHelpful ? 'Понравилось!' : 'Лайк!'} ({fShortenNumber(helpful)})
-            </Button>
-          </Box>
-        </div>
-      </ListItem>
-    </>
+            {isHelpful ? 'Понравилось!' : 'Лайк!'} ({fShortenNumber(helpful)})
+          </Button>
+        </Box>
+      </div>
+    </ListItem>
   );
 }

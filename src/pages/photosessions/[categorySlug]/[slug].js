@@ -17,6 +17,8 @@ import Box from '@mui/material/Box';
 import TypographyDangerSetHtml from '../../../utils/dangerSetHtml';
 import PhotoGallery from '../../../components/photosessions/PhotoGallery';
 import ProductDetailsReviewList from '../../../components/ProductDetailsReviewList';
+import SetHead from '../../../utils/SetHead';
+import getMetaDescriptionText from '../../../utils/getMetaDescriptionText';
 
 const RootStyle = styled('div')(({ theme }) => ({
   minHeight: '100%',
@@ -49,10 +51,6 @@ export default function Slug({ data = null }) {
       html,
     } = {},
   } = data;
-
-  const meta = {
-    description: content.text.slice(0, 255),
-  };
 
   let left = <>
     <AnimatedText text={<>
@@ -107,9 +105,11 @@ export default function Slug({ data = null }) {
   };
 
   return (
-    <Page title={`${title}, ${fToNow(date)}, ${place.location}`} {...meta}>
+    <Page>
       <PageHero blocks={blocks} header={`${title}`}
                 backgroundimage={coverImage.url} />
+      <SetHead title={`${title}, ${fToNow(date)}, ${place.location}`}
+               description={getMetaDescriptionText(content.text)} />
       <RootStyle>
         <Container>
           <HeaderBreadcrumbs

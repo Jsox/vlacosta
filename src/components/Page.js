@@ -12,7 +12,9 @@ const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
   <>
     <Head>
       <title>{`${title} | ${CONFIG.SITE_NAME}`}</title>
-      {meta}
+      {/*{meta.length && meta.map(({name, content}) =>{*/}
+      {/*  return `<meta name=${name} content=${content} />`*/}
+      {/*})}*/}
     </Head>
 
     <Box ref={ref} {...other}>
@@ -24,7 +26,7 @@ const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
 Page.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
-  meta: PropTypes.node,
+  meta: PropTypes.array,
 };
 
 export default Page;

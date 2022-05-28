@@ -1,19 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { categoriesPaths, category } from '../../../utils/api';
 import Page from '../../../components/Page';
-import { Box, Container, Pagination } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 import { styled } from '@mui/material/styles';
 import useSettings from '../../../hooks/useSettings';
 import Layout from '../../../layouts';
 import getMetaDescriptionText from '../../../utils/getMetaDescriptionText';
 import TypographyDangerSetHtml from '../../../utils/dangerSetHtml';
-import PhotoSessionCard from '../../../components/PhotoSessionCard';
-import Grid from '@mui/material/Grid';
 import PageHero from '../../../components/PageHero';
 import Iconify from '../../../components/Iconify';
 import { AnimatedText } from './[slug]';
-import PaginationItem from '@mui/material/PaginationItem';
+import PhotoSessionsList from '../../../components/photosessions/PhotoSessionsList';
+import usePagination from '../../../hooks/usePagination';
+import Typography from '@mui/material/Typography';
+import SetHead from '../../../utils/SetHead';
 
 const RootStyle = styled('div')(({ theme }) => ({
   minHeight: '100%',
@@ -29,48 +30,20 @@ export default function Index({ data }) {
 
   const { title: cleanTitle, description, photosessions: allPhotosessions, image } = data;
 
-  let currentPage = parseInt(window.location.hash.replace('#', '')) || 1;
-
-  const topOfSessions = useRef();
-
-  function goToTopOfSessions() {
-    topOfSessions.current.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  const sessionsOnPage = 6;
-  const totalPages = Math.ceil(allPhotosessions.length / sessionsOnPage);
-
   const { themeStretch } = useSettings();
 
+  let pagination = usePagination();
 
-  let [title, setTitle] = useState(`${cleanTitle} в Новороссийске`);
-  let [page, setPage] = useState(currentPage);
+  let { titleAddon } = pagination;
 
-  const getPhotosessions = () => {
-    let from = (page - 1) * sessionsOnPage;
-    let to = from + sessionsOnPage;
-    return allPhotosessions.slice(from, to);
-  };
+  let [title, setTitle] = useState(`${cleanTitle} в Новороссийске ${titleAddon}`);
 
-  let [photosessions, setPhotosessions] = useState(getPhotosessions);
-
-  const handlePageChange = (event, value) => {
-    goToTopOfSessions();
-    setPage(value);
-    if (value == 1) {
-      setTitle(`${cleanTitle}`);
-    } else {
-      setTitle(`${cleanTitle} | Страница ${value}`);
-    }
-  };
+  let [metaDescriptionText, setMetaDescriptionText] = useState(getMetaDescriptionText(description.text, ` ${titleAddon}`));
 
   useEffect(() => {
-    setPhotosessions(getPhotosessions);
-  }, [page]);
-
-  const meta = {
-    description: getMetaDescriptionText(description.text),
-  };
+    setTitle(`${cleanTitle} в Новороссийске ${titleAddon}`);
+    setMetaDescriptionText(getMetaDescriptionText(description.text, ` ${titleAddon}`));
+  }, [titleAddon]);
 
   const blocks = {
     center: (
@@ -82,10 +55,12 @@ export default function Index({ data }) {
   };
 
   return (
-    <Page title={title} {...meta}>
+    <Page>
+      <SetHead title={title} description={metaDescriptionText} />
       <PageHero blocks={blocks} header={`${cleanTitle}`} backgroundimage={image.url} />
       <RootStyle>
         <Container sx={{ px: 0 }} maxWidth={themeStretch ? false : 'lg'}>
+          <Typography>{metaDescriptionText}</Typography>
           <HeaderBreadcrumbs
             heading={`${title}`}
             links={[
@@ -102,28 +77,7 @@ export default function Index({ data }) {
               },
             ]}
           />
-          <Grid ref={topOfSessions} sx={{ mt: 4, mb: 2 }} container spacing={2}>
-            {photosessions.map(photosession => (
-              <Grid key={photosession.slug} item xs={12} sm={6} lg={4}>
-                <PhotoSessionCard item={photosession} />
-              </Grid>
-            ))}
-          </Grid>
-          {allPhotosessions.length > sessionsOnPage && <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Pagination
-              onChange={handlePageChange}
-              page={page}
-              count={totalPages}
-              color="error"
-              renderItem={(item) => {
-                item.href = `#${item.page}`;
-                return <PaginationItem
-                  component={'a'}
-                  {...item}
-                />;
-              }}
-            />
-          </Box>}
+          <PhotoSessionsList pagination={pagination} photosessions={allPhotosessions} />
         </Container>
       </RootStyle>
     </Page>
