@@ -1,6 +1,4 @@
 import NextCors from 'nextjs-cors';
-import cookie from 'cookie';
-
 
 export default async function handler(req, res) {
   // Run cors
