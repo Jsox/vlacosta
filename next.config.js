@@ -25,4 +25,12 @@ module.exports = withPWA(withTM({
   images: {
     domains: ['media.graphassets.com'],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/metrika/watch.js',
+        destination: 'https://mc.yandex.ru/metrika/watch.js',
+      },
+    ]
+  },
 }));
