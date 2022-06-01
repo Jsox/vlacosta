@@ -32,22 +32,22 @@ Page500.getLayout = function getLayout(page) {
 
 export default function Page500() {
   return (
-    <Page title="500 Internal Server Error" sx={{ height: 1 }}>
+    <Page title="500 Ошибка на сервере" sx={{ height: 1 }}>
       <RootStyle>
         <Container component={MotionContainer}>
           <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
             <m.div variants={varBounce().in}>
               <Typography variant="h3" paragraph>
-                500 Internal Server Error
+                500 Ошибка на сервере
               </Typography>
             </m.div>
-            <Typography sx={{ color: 'text.secondary' }}>There was an error, please try again later.</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>Произошла ошибка. Мы уже работаем над этим!</Typography>
             <m.div variants={varBounce().in}>
               <SeverErrorIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} />
             </m.div>
             <NextLink href="/" passHref>
               <Button size="large" variant="contained">
-                Go to Home
+                Вернуться на главную страницу
               </Button>
             </NextLink>
           </Box>

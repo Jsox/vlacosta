@@ -1,3 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
+# *
 User-agent: *
-Disallow:
+Allow: /
+
+# Host
+Host: https://vlacosta.ru
+
+# Sitemaps
+Sitemap: https://vlacosta.ru/sitemap.xml
