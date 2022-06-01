@@ -23,14 +23,7 @@ module.exports = withPWA(withTM({
     MAPBOX: process.env.MAPBOX,
   },
   images: {
-    domains: ['media.graphassets.com'],
+    domains: ['media.graphassets.com', 'mc.yandex.ru/metrika'],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/metrika/watch.js',
-        destination: 'https://mc.yandex.ru/metrika/watch.js',
-      },
-    ]
-  },
+  crossOrigin: 'anonymous',
 }));
