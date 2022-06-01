@@ -60,7 +60,6 @@ export default function Index({ data }) {
       <PageHero blocks={blocks} header={`${cleanTitle}`} backgroundimage={image.url} />
       <RootStyle>
         <Container sx={{ px: 0 }} maxWidth={themeStretch ? false : 'lg'}>
-          <Typography>{metaDescriptionText}</Typography>
           <HeaderBreadcrumbs
             heading={`${title}`}
             links={[

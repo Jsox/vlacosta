@@ -43,9 +43,9 @@ export default function MainLayout({ children }) {
             <Logo sx={{ mb: 1, mx: 'auto' }} />
 
             <Typography variant="caption" component="p">
-              © All rights reserved
-              <br /> made by &nbsp;
-              <Link href="https://minimals.cc/">minimals.cc</Link>
+              © Все права защищены
+              <br /> Сайт создан &nbsp;
+              <Link href="https://jsix.ru/">JSix.ru</Link>
             </Typography>
           </Container>
         </Box>

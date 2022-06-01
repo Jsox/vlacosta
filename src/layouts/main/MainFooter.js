@@ -14,7 +14,7 @@ import SiteAuthorFooterStr from '../../components/SiteAuthorFooterStr';
 
 const LINKS = [
   {
-    headline: 'Minimal',
+    headline: 'Разделы сайта',
     children: [
       // { name: 'About us', href: PATH_PAGE.about },
       // { name: 'Contact us', href: PATH_PAGE.contact },
@@ -22,17 +22,17 @@ const LINKS = [
     ],
   },
   {
-    headline: 'Legal',
+    headline: 'Условия',
     children: [
-      { name: 'Terms and Condition', href: '#' },
-      { name: 'Privacy Policy', href: '#' },
+      { name: 'Условия использования', href: '#' },
+      { name: 'О нас', href: '#' },
     ],
   },
   {
-    headline: 'Contact',
+    headline: 'Связаться',
     children: [
-      { name: 'support@minimals.cc', href: '#' },
-      { name: 'Los Angeles, 359  Hidden Valley Road', href: '#' },
+      { name: 'admin@vlacosta.ru', href: 'mailto:admin@vlacosta.ru' },
+      { name: 'Новороссийск, ул.Свердлова', href: '#' },
     ],
   },
 ];
@@ -87,7 +87,7 @@ export default function MainFooter() {
                     {list.headline}
                   </Typography>
                   {list.children.map((link) => (
-                    <NextLink key={link.name} href={link.href} passHref>
+                    <NextLink key={link.name} href={'#'} passHref>
                       <Link color="inherit" variant="body2" sx={{ display: 'block' }}>
                         {link.name}
                       </Link>

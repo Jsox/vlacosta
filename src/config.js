@@ -50,6 +50,14 @@ export const defaultSettings = {
 };
 
 export const CONFIG = {
-  SITE_NAME_SHORT:'VlaCosta',
-  SITE_NAME:'Фотограф в Новороссийске',
-}
+  SITE_NAME_SHORT: 'VlaCosta',
+  SITE_NAME: 'Фотограф в Новороссийске',
+};
+
+export const MAIN_ROUTES = {
+  PHOTOSESSIONS: 'photosessions',
+  TAGS: 'tags',
+  PRICES: 'prices',
+  ABOUT: 'about-us',
+  CONTACT: 'contacts',
+};

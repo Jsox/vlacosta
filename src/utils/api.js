@@ -14,7 +14,7 @@ export const api = async (query) => {
     const answer = await graphcms.request(`${query}`);
     return answer;
   } catch (e) {
-    console.log({ ERROR: e });
+    console.log({ API_ERROR: e });
     return [];
   }
 };
@@ -210,6 +210,90 @@ export const categoriesPaths = async () => {
     }`,
   );
   return categories || [];
+};
+
+export const tags = async (slug = null) => {
+  console.log(slug);
+  const { tags } = await api(
+    `query tags {
+  tags(${slug ? `where: {slug: "${slug}"}` : ''}) {
+    color
+    id
+    slug
+    title
+    photosessions ${slug ? '' : '(last: 6)'} {
+      id
+      author {
+        id
+        name
+        picture {
+          url(
+            transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}}
+          )
+        }
+        title
+      }
+      category {
+        publishedAt
+        slug
+        title
+      }
+      date
+      images {
+        id
+      }
+      coverImage {
+        url(
+          transformation: {image: {resize: {height: 560, width: 1920, fit: crop}}, document: {output: {format: webp}}}
+        )
+      }
+      publishedAt
+      slug
+      title
+      tags {
+        slug
+        title
+        description {
+          html
+          text
+        }
+      }
+      place {
+        location
+        map {
+          latitude
+          longitude
+        }
+      }
+      persons {
+        avatar {
+          url(
+            transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}}
+          )
+        }
+        name
+      }
+      reviews {
+        createdAt
+        id
+        person {
+          avatar {
+            url(transformation: {})
+          }
+          name
+        }
+        rating
+        helpful
+        comment {
+          html
+        }
+      }
+    }
+  }
+}
+`,
+  );
+  return tags || [];
 };
 export const category = async (slug) => {
   const { category } = await api(

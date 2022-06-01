@@ -12,6 +12,6 @@
 
 /* Style your items */
 .photoGalleryColumn > div { /* change div to reference your elements you put in <Masonry> */
-    background: grey;
+    background: rgba(255,255,255,.1);
     margin-bottom: 5px;
 }

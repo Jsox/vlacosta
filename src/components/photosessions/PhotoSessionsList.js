@@ -35,9 +35,9 @@ const PhotoSessionsList = ({ photosessions: allPhotosessions, sessionsOnPage = 6
 
   return (<>
       <Grid ref={topOfSessions} sx={{ mt: 4, mb: 2 }} container spacing={2}>
-        {photosessions.map(photosession => (
+        {photosessions.map((photosession, i) => (
           <Grid key={photosession.slug} item xs={12} sm={6} lg={4}>
-            <PhotoSessionCard item={photosession} />
+            <PhotoSessionCard item={photosession} index={i} />
           </Grid>
         ))}
       </Grid>

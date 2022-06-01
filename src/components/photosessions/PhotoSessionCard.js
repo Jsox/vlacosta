@@ -9,14 +9,14 @@ import React from 'react';
 import { m } from 'framer-motion';
 import FadeInWhenVisible from '../animate/ShowThenInView';
 
-function PhotoSessionCard({ item, sx }) {
+function PhotoSessionCard({ item, sx, index = 0 }) {
   const { author, place, slug, category, title: name, images, date: bookdAt, coverImage: cover, tags: roomType } = item;
   return (
     <m.div
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.99 }}
     >
-      <FadeInWhenVisible>
+      <FadeInWhenVisible  delay={index * 0.15}>
         <Paper sx={{ mx: 0, borderRadius: 2, bgcolor: 'background.neutral', ...sx }}>
           <Stack spacing={1.5} sx={{ p: 1, pt: 2, pb: 1.5 }}>
             <Stack direction="row" alignItems="center" spacing={1}>
@@ -69,7 +69,7 @@ function PhotoSessionCard({ item, sx }) {
           <Box sx={{ p: 1, position: 'relative' }}>
             {roomType && roomType.map(({ title, slug }, i) => {
               let bottom = (i * 25) + 16;
-              return <NextLink key={slug} href={`/tag/${slug}`} passHref>
+              return <NextLink key={slug} href={`/tags/${slug}`} passHref>
                 <a>
                   <Label
                     variant="filled"

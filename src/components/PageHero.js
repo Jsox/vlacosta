@@ -8,14 +8,14 @@ import Stack from '@mui/material/Stack';
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ backgroundimage, theme }) => ({
+const RootStyle = styled('div')(({ backgroundimage, auto, theme }) => ({
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundImage:
     `url(/assets/overlay.svg)${backgroundimage && ', url(' + backgroundimage})`,
   padding: theme.spacing(10, 0, 2),
   [theme.breakpoints.up('md')]: {
-    height: 560,
+    height: auto != '0' ? 300 : 560,
     padding: 0,
   },
 }));
@@ -30,9 +30,9 @@ const ContentStyle = styled('div')(({ theme }) => ({
 }));
 
 
-const PageHero = ({ blocks: { left = '', right = '', center = '', bottom = '' } = {}, header, backgroundimage = '' }) => {
+const PageHero = ({ blocks: { left = '', right = '', center = '', bottom = '' } = {}, header, backgroundimage = '', auto = '0' }) => {
   return (
-    <RootStyle backgroundimage={backgroundimage}>
+    <RootStyle auto={auto} backgroundimage={backgroundimage}>
       <Container component={MotionContainer} sx={{ position: 'relative', height: '100%' }}>
         <ContentStyle>
           <Typography component={'h1'} variant={'h2'} sx={{ color: 'primary.light' }}>{header}</Typography>
@@ -67,7 +67,7 @@ const PageHero = ({ blocks: { left = '', right = '', center = '', bottom = '' } 
               {right}
             </Box>
           </Stack>
-          <Box sx={{my:2}}>{bottom}</Box>
+          <Box sx={{ my: 2 }}>{bottom}</Box>
         </ContentStyle>
       </Container>
     </RootStyle>

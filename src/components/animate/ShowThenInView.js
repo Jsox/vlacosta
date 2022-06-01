@@ -1,16 +1,15 @@
 import { m } from 'framer-motion';
 import { Box } from '@mui/material';
-import { varTranExit } from './variants';
 
-export default function FadeInWhenVisible({ variant = 'inDown', children, sx, component = 'div', duration = 0.3, ...other }) {
+export default function FadeInWhenVisible({ delay = 0, variant = 'inDown', children, sx, component = 'div', duration = 0.3, ...other }) {
   const distance = 120;
   const variants = {
     inDown: {
       visible: { opacity: 1, scale: 1, y: 0 },
-      hidden: { opacity: 0, scale: 0.5, y: -distance },
-      exit: { y: -distance, opacity: 0 },
-    }
-  }
+      hidden: { opacity: 0, scale: .7, y: distance },
+      exit: { y: distance, opacity: 0 },
+    },
+  };
   return (
     <Box
       {...other}
@@ -19,7 +18,7 @@ export default function FadeInWhenVisible({ variant = 'inDown', children, sx, co
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{ duration: duration }}
+      transition={{ delay: delay, duration: duration, ease: 'easeOut' }}
       variants={variants[variant]}
     >
       {children}

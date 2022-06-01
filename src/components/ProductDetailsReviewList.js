@@ -15,9 +15,9 @@ export default function ProductDetailsReviewList({ reviews = [] }) {
   return (
     <Box sx={{ pt: 3, px: 2, pb: 5 }}>
       <List disablePadding>
-        {reviews.map((review) => (
-          <FadeInWhenVisible key={review.id}>
-            <ReviewItem review={review} />
+        {reviews.map((review, i) => (
+          <FadeInWhenVisible delay={i * 0.3} key={review.id}>
+            <ReviewItem even={i % 2} review={review} />
           </FadeInWhenVisible>
         ))}
       </List>
@@ -30,7 +30,7 @@ export default function ProductDetailsReviewList({ reviews = [] }) {
 
 // ----------------------------------------------------------------------
 
-function ReviewItem({ review }) {
+function ReviewItem({even, review }) {
   const {
     person,
     rating,
@@ -54,7 +54,7 @@ function ReviewItem({ review }) {
       disableGutters
       sx={{
         mb: 5,
-        alignItems: 'flex-start',
+        alignItems: 'center',
         flexDirection: { xs: 'column', sm: 'row' },
       }}
     >
@@ -90,8 +90,7 @@ function ReviewItem({ review }) {
       </Box>
 
       <div>
-        <Rating size="small" value={rating} precision={0.1} readOnly />
-
+        <Rating size="medium" value={rating} precision={1} readOnly />
         {isPurchased && (
           <Typography
             variant="caption"

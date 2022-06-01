@@ -77,7 +77,7 @@ export default function HomeHero() {
 
         <HeroImgStyle
           alt="hero"
-          src="https://minimal-assets-api.vercel.app/assets/images/home/hero.png"
+          src="https://media.graphassets.com/output=format:png/resize=height:800,fit:max/ie9dN1gTCaMIuhHiD6gJ"
           variants={varFade().inUp}
         />
 
@@ -85,18 +85,19 @@ export default function HomeHero() {
           <ContentStyle>
             <m.div variants={varFade().inRight}>
               <Typography variant="h1" sx={{ color: 'common.white' }}>
-                Start a <br />
-                new project <br /> with
+                Давайте запечатлеем<br />
+                частичку жизни
                 <Typography component="span" variant="h1" sx={{ color: 'primary.main' }}>
-                  &nbsp;Minimal
+                  &nbsp;ВМЕСТЕ
                 </Typography>
               </Typography>
             </m.div>
 
             <m.div variants={varFade().inRight}>
-              <Typography sx={{ color: 'common.white' }}>
-                The starting point for your next project based on easy-to-customize MUI helps you build apps faster and
-                better.
+              <Typography variant="h5" sx={{fontWeight: 'medium', color: 'common.white' }}>
+                Профессиональная фотосъемка свадеб и венчаний, детских праздников и дней рождений, влюбленных пар и всех желающих.
+                Работаем как на выезде, так и в студии.
+                Так же съемка товаров для маркет-плейсов, таких как вайлдберриз, озон и т.п.
               </Typography>
             </m.div>
 

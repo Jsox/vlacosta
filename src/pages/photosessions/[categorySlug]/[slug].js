@@ -113,7 +113,7 @@ export default function Slug({ data = null }) {
       <RootStyle>
         <Container>
           <HeaderBreadcrumbs
-            heading={`${title}`}
+            heading={`${title}, ${place.location}`}
             links={[
               {
                 name: 'Главная',
@@ -127,7 +127,7 @@ export default function Slug({ data = null }) {
                 href: `/photosessions/${category.slug}`,
               },
               {
-                name: title,
+                name:  `${title}`,
               },
             ]}
           />
