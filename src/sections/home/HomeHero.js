@@ -154,7 +154,7 @@ export default function HomeHero() {
                 <Button
                   size="large"
                   variant="contained"
-                  startIcon={<Iconify icon={'eva:flash-fill'} width={20} height={20} />}
+                  startIcon={<Iconify icon={'charm:phone-outgoing'} width={20} height={20} />}
                 >
                   Позвонить нам
                 </Button>
