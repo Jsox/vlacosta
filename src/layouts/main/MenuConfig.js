@@ -16,13 +16,23 @@ const menuConfig = [
   },
   {
     title: 'Фотосессии',
-    icon: <Iconify icon={'eva:home-fill'} {...ICON_SIZE} />,
+    icon: <Iconify icon={'fa-solid:photo-video'} {...ICON_SIZE} />,
     path: '/photosessions',
   },
   {
     title: 'Цены',
-    icon: <Iconify icon={'ic:round-grain'} {...ICON_SIZE} />,
+    icon: <Iconify icon={'carbon:currency-ruble'} {...ICON_SIZE} />,
     path: '/prices',
+  },
+  {
+    title: 'О нас',
+    icon: <Iconify icon={'akar-icons:info'} {...ICON_SIZE} />,
+    path: '/about-us',
+  },
+  {
+    title: 'Связаться',
+    icon: <Iconify icon={'bx:help-circle'} {...ICON_SIZE} />,
+    path: '/contacts',
   },
   // {
   //   title: 'Pages',

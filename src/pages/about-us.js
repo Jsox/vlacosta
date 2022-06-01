@@ -7,6 +7,7 @@ import Layout from '../layouts';
 import Page from '../components/Page';
 // sections
 import { AboutHero, AboutWhat, AboutTeam, AboutVision, AboutTestimonials } from '../sections/about';
+import ComingSoon from '../components/ComingSoon';
 
 // ----------------------------------------------------------------------
 
@@ -27,15 +28,16 @@ About.getLayout = function getLayout(page) {
 
 export default function About() {
   return (
-    <Page title="About us">
-      <RootStyle>
-        <AboutHero />
-        <AboutWhat />
-        <AboutVision />
-        <Divider orientation="vertical" sx={{ my: 10, mx: 'auto', width: 2, height: 40 }} />
-        <AboutTeam />
-        <AboutTestimonials />
-      </RootStyle>
+    <Page title="О нас">
+      <ComingSoon />
+      {/*<RootStyle>*/}
+      {/*  <AboutHero />*/}
+      {/*  <AboutWhat />*/}
+      {/*  <AboutVision />*/}
+      {/*  <Divider orientation="vertical" sx={{ my: 10, mx: 'auto', width: 2, height: 40 }} />*/}
+      {/*  <AboutTeam />*/}
+      {/*  <AboutTestimonials />*/}
+      {/*</RootStyle>*/}
     </Page>
   );
 }
