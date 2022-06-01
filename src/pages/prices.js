@@ -31,36 +31,36 @@ export default function Pricing({data}) {
     <Page title="Pricing">
       <RootStyle>
         <Container>
-          <Typography variant="h3" align="center" paragraph>
-            Flexible plans for your
-            <br /> community&apos;s size and needs
-          </Typography>
+          {/*<Typography variant="h3" align="center" paragraph>*/}
+          {/*  Flexible plans for your*/}
+          {/*  <br /> community&apos;s size and needs*/}
+          {/*</Typography>*/}
           <Typography align="center" sx={{ color: 'text.secondary' }}>
-            Choose your plan and make modern online conversation magic
+            Скоро добавим прайс...
           </Typography>
 
-          <Box sx={{ my: 5 }}>
-            <Stack direction="row" alignItems="center" justifyContent="flex-end">
-              <Typography variant="overline" sx={{ mr: 1.5 }}>
-                MONTHLY
-              </Typography>
-              <Switch />
-              <Typography variant="overline" sx={{ ml: 1.5 }}>
-                YEARLY (save 10%)
-              </Typography>
-            </Stack>
-            <Typography variant="caption" align="right" sx={{ color: 'text.secondary', display: 'block' }}>
-              * Plus applicable taxes
-            </Typography>
-          </Box>
+          {/*<Box sx={{ my: 5 }}>*/}
+          {/*  <Stack direction="row" alignItems="center" justifyContent="flex-end">*/}
+          {/*    <Typography variant="overline" sx={{ mr: 1.5 }}>*/}
+          {/*      MONTHLY*/}
+          {/*    </Typography>*/}
+          {/*    <Switch />*/}
+          {/*    <Typography variant="overline" sx={{ ml: 1.5 }}>*/}
+          {/*      YEARLY (save 10%)*/}
+          {/*    </Typography>*/}
+          {/*  </Stack>*/}
+          {/*  <Typography variant="caption" align="right" sx={{ color: 'text.secondary', display: 'block' }}>*/}
+          {/*    * Plus applicable taxes*/}
+          {/*  </Typography>*/}
+          {/*</Box>*/}
 
-          <Grid container spacing={3}>
-            {_pricingPlans.map((card, index) => (
-              <Grid item xs={12} md={4} key={card.subscription}>
-                <PricingPlanCard card={card} index={index} />
-              </Grid>
-            ))}
-          </Grid>
+          {/*<Grid container spacing={3}>*/}
+          {/*  {_pricingPlans.map((card, index) => (*/}
+          {/*    <Grid item xs={12} md={4} key={card.subscription}>*/}
+          {/*      <PricingPlanCard card={card} index={index} />*/}
+          {/*    </Grid>*/}
+          {/*  ))}*/}
+          {/*</Grid>*/}
         </Container>
       </RootStyle>
     </Page>
