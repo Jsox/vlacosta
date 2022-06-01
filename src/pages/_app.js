@@ -59,6 +59,9 @@ import NotistackProvider from '../components/NotistackProvider';
 import ThemeLocalization from '../components/ThemeLocalization';
 import MotionLazyContainer from '../components/animate/MotionLazyContainer';
 
+import Router from "next/router";
+import withYM from "next-ym";
+
 
 MyApp.propTypes = {
   Component: PropTypes.func,
@@ -66,7 +69,7 @@ MyApp.propTypes = {
   settings: PropTypes.object,
 };
 
-export default function MyApp(props) {
+function MyApp(props) {
   const { Component, pageProps, settings } = props;
 
   const getLayout = Component.getLayout ?? ((page) => page);
@@ -121,3 +124,5 @@ MyApp.getInitialProps = async (context) => {
     settings,
   };
 };
+
+export default withYM("84270166", Router)(MyApp);

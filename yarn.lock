@@ -5863,6 +5863,14 @@ next-transpile-modules@^9.0.0:
     enhanced-resolve "^5.7.0"
     escalade "^3.1.1"
 
+next-ym@^2.3.5:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/next-ym/-/next-ym-2.3.5.tgz#329d5bf707e8bee39169fbc58b4c7127007f1cdb"
+  integrity sha512-wkZE5BqvvCbdoDE3B1qMY5M3ja/o0viBagXHiht+ujhijzr8JEoxenE7Snpd/nFcj8Jd2FH0T2Hs2P5pmycfEg==
+  dependencies:
+    debug "^4.0.0"
+    react-ym "^0.0.7"
+
 next@^12.1.0:
   version "12.1.0"
   resolved "https://registry.npmjs.org/next/-/next-12.1.0.tgz"
@@ -6608,6 +6616,11 @@ react-transition-group@^4.4.2:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-ym@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/react-ym/-/react-ym-0.0.7.tgz#496c9ea5f6644b40bc264b38d72d6501a9687e93"
+  integrity sha1-SWyepfZkS0C8Jks41y1lAalofpM=
 
 react@^17.0.1:
   version "17.0.2"
