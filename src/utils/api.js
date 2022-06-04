@@ -349,3 +349,44 @@ export const category = async (slug) => {
   );
   return category || [];
 };
+
+export async function lastPhotosessions(number = 6){
+  const {photosessions} = await api(`
+query lastPhotosessions {
+  photosessions(first: ${number}, orderBy: date_DESC) {
+    category {
+      slug
+    }
+    author {
+      name
+      title
+      picture {
+        url(
+          transformation: {document: {output: {format: webp}}, image: {resize: {height: 65, width: 65}}}
+        )
+      }
+    }
+    coverImage {
+      url(
+        transformation: {document: {output: {format: webp}}, image: {resize: {height: 364, width: 364}}}
+      )
+    }
+    excerpt
+    images {
+      id
+    }
+    place {
+      location
+    }
+    slug
+    tags {
+      slug
+      title
+    }
+    date
+    title
+  }
+}
+  `);
+  return photosessions || [];
+}

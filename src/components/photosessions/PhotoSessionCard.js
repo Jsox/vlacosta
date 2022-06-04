@@ -16,7 +16,7 @@ function PhotoSessionCard({ item, sx, index = 0 }) {
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.99 }}
     >
-      <FadeInWhenVisible  delay={index * 0.15}>
+      <FadeInWhenVisible  delay={index * 0.05}>
         <Paper sx={{ mx: 0, borderRadius: 2, bgcolor: 'background.neutral', ...sx }}>
           <Stack spacing={1.5} sx={{ p: 1, pt: 2, pb: 1.5 }}>
             <Stack direction="row" alignItems="center" spacing={1}>

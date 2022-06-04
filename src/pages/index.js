@@ -5,17 +5,12 @@ import Layout from '../layouts';
 // components
 import Page from '../components/Page';
 // sections
-import {
-  HomeHero,
-  HomeMinimal,
-  HomeDarkMode,
-  HomeLookingFor,
-  HomeColorPresets,
-  HomePricingPlans,
-  HomeAdvertisement,
-  HomeCleanInterfaces,
-  HomeHugePackElements,
-} from '../sections/home';
+import { HomeHero } from '../sections/home';
+import PhotoSessionsList from '../components/photosessions/PhotoSessionsList';
+import { lastPhotosessions } from '../utils/api';
+import usePagination from '../hooks/usePagination';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
 // ----------------------------------------------------------------------
 
@@ -37,12 +32,17 @@ HomePage.getLayout = function getLayout(page) {
 
 // ----------------------------------------------------------------------
 
-export default function HomePage() {
+export default function HomePage({ photosessions }) {
+  const pagination = usePagination();
   return (
-    <Page title='Заказать фотографа в Новороссийске'>
+    <Page title='Заказать профессиональную фотосессию'>
       <RootStyle>
         <HomeHero />
         <ContentStyle>
+          <Container>
+            <Typography sx={{pt:4}} variant={'h2'}>Последние фотосессии</Typography>
+            <PhotoSessionsList sessionsOnPage={3} photosessions={photosessions} pagination={pagination} />
+          </Container>
           {/*<HomeMinimal />*/}
 
           {/*<HomeHugePackElements />*/}
@@ -62,4 +62,14 @@ export default function HomePage() {
       </RootStyle>
     </Page>
   );
+}
+
+export async function getStaticProps() {
+  const photosessions = await lastPhotosessions(12);
+  return {
+    props: {
+      photosessions: photosessions,
+    },
+    revalidate: 60 * 60,
+  };
 }
