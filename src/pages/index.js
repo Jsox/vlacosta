@@ -39,7 +39,7 @@ HomePage.getLayout = function getLayout(page) {
 
 export default function HomePage() {
   return (
-    <Page title="The starting point for your next project">
+    <Page title='Заказать фотографа в Новороссийске'>
       <RootStyle>
         <HomeHero />
         <ContentStyle>

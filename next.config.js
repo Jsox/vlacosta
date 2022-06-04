@@ -23,7 +23,19 @@ module.exports = withPWA(withTM({
     MAPBOX: process.env.MAPBOX,
   },
   images: {
-    domains: ['media.graphassets.com', 'mc.yandex.ru/metrika'],
+    domains: ['media.graphassets.com'],
   },
-  crossOrigin: 'anonymous',
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "https://mc.yandex.ru/metrika/watch.js",
+  //       headers: [
+  //         { key: "Access-Control-Allow-Credentials", value: "true" },
+  //         { key: "Access-Control-Allow-Origin", value: "*" },
+  //         { key: "Access-Control-Allow-Methods", value: "GET" },
+  //         { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
+  //       ]
+  //     }
+  //   ]
+  // }
 }));
