@@ -56,14 +56,14 @@ export default function Photosessions({ data }) {
                 html,
               },
               photosessions,
-            },
-          ) => {
+            }
+          , i) => {
 
             if (!slug || photosessions.length === 0) {
               return null;
             }
             return <PhotosessionsShowMultiple
-              key={id}
+              key={i}
               text={text}
               photosessions={photosessions}
               actionButton={{

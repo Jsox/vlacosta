@@ -1,4 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
+import { fragments } from '../queryFragments';
 
 export const api = async (query) => {
   try {
@@ -12,6 +13,12 @@ export const api = async (query) => {
     );
 
     const answer = await graphcms.request(`${query}`);
+    if (answer.errors) {
+      answer.errors.forEach(e => {
+        console.warning({ API_ERROR: e.message });
+      });
+      return;
+    }
     return answer;
   } catch (e) {
     console.log({ API_ERROR: e });
@@ -23,64 +30,38 @@ export const photosessions = async () => {
   const data = await api(
     `query photosessions {
   categories {
-    id
-    description {
-      html
-      text
-    }
-    image {
-      url(transformation: {document: {output: {format: webp}}})
-    }
+    ...CategoryParts
     photosessions(first: 5, orderBy: date_DESC) {
-      place {
-        map {
-          latitude
-          longitude
-        }
-        location
+      ...PhotoSessionParts
+      coverImage {
+        url(
+          transformation: {document: {output: {format: webp}}, image: {resize: {fit: max, height: 544, width: 544}}}
+        )
       }
       category {
-        slug
+        ...CategoryParts
       }
       author {
-        name
-        picture {
-          url(transformation: {document: {output: {format: webp}}, image: {resize: {fit: crop, height: 65, width: 65}}})
-        }
+        ...AuthorParts
       }
-      id
-      date
-      excerpt
-      content {
-        html
-        text
+      persons {
+        ...PersonParts
       }
-      coverImage {
-        url(transformation: {document: {output: {format: webp}}, image: {resize: {height: 536, width: 536, fit: crop}}})
-      }
-      images {
-        id
-      }
-      slug
-        persons {
-          avatar {
-            url(
-              transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}}
-            )
-          }
-          name
-        }
       tags(first: 4) {
-        slug
-        title
-        color
+        ...TagParts
       }
-      title
+      place {
+        ...PlaceParts
+      }
     }
-    slug
-    title
   }
 }
+${fragments.CategoryParts}
+${fragments.AuthorParts}
+${fragments.TagParts}
+${fragments.PhotoSessionParts}
+${fragments.PersonParts}
+${fragments.PlaceParts}
 `,
   );
   return data.categories;
@@ -91,99 +72,40 @@ export const photosession = async (slug) => {
     `
 {
   photosession(where: {slug: "${slug}"}) {
-    id
+    ...PhotoSessionParts
     author {
-      id
-      name
-      photosessions {
-        slug
-      }
-      picture {
-        url(transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}})
-      }
-      title
+      ...AuthorParts
     }
     category {
-      photosessions {
-        slug
-        title
-      }
-      product {
-        slug
-        title
-      }
-      publishedAt
-      slug
-      title
+      ...CategoryParts
     }
-    content {
-      html
-      text
-    }
-    date
-    excerpt
-    images {
-      id
-      url(transformation: {document: {output: {format: webp}}, image: {resize: {fit: max, width: 1920, height: 1080}}})
-      width
-      height
-      handle
-    }
-    seo {
-      title
-      keywords
-      description
-    }
-    updatedAt
     coverImage {
             url(
         transformation: {image: {resize: {height: 560, width: 1920, fit: crop}}, document: {output: {format: webp}}}
       )
     }
-    publishedAt
-    slug
-    title
     tags {
-      slug
-      title
-      description {
-        html
-        text
-      }
+      ...TagParts
     }
     place {
-      location
-      map {
-        latitude
-        longitude
-      }
+      ...PlaceParts
     }
-        persons {
-          avatar {
-            url(
-              transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}}
-            )
-          }
-          name
-        }
+    persons {
+        ...PersonParts
+    }
     reviews {
-      createdAt
-      date
-      id
-      person {
-        avatar {
-          url(transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 64, width: 64}}})
-        }
-        name
-      }
-      rating
-      helpful
-      comment{
-        html
-      }
+      ...ReviewParts
     }
   }
-}`,
+}
+${fragments.CategoryParts}
+${fragments.AuthorParts}
+${fragments.TagParts}
+${fragments.ReviewParts}
+${fragments.PersonParts}
+${fragments.PhotoSessionParts}
+${fragments.PlaceParts}
+`,
   );
   return data.photosession;
 };
@@ -197,7 +119,8 @@ export const photosessionsPaths = async () => {
       slug
     }
   }
-}`,
+}
+`,
   );
   return photosessions || [];
 };
@@ -207,7 +130,8 @@ export const categoriesPaths = async () => {
   categories {
     slug
   }
-    }`,
+    }
+    `,
   );
   return categories || [];
 };
@@ -217,154 +141,67 @@ export const tags = async (slug = null) => {
   const { tags } = await api(
     `query tags {
   tags(${slug ? `where: {slug: "${slug}"}` : ''}) {
-    color
-    id
-    slug
-    title
+    ...TagParts
     photosessions ${slug ? '' : '(last: 6)'} {
-      id
+      ...PhotoSessionParts
+      category { 
+        slug
+      }
       author {
-        id
-        name
-        picture {
-          url(
-            transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}}
-          )
-        }
-        title
-      }
-      category {
-        publishedAt
-        slug
-        title
-      }
-      date
-      images {
-        id
-      }
-      coverImage {
-        url(
-          transformation: {image: {resize: {height: 560, width: 1920, fit: crop}}, document: {output: {format: webp}}}
-        )
-      }
-      publishedAt
-      slug
-      title
-      tags {
-        slug
-        title
-        description {
-          html
-          text
-        }
-      }
-      place {
-        location
-        map {
-          latitude
-          longitude
-        }
-      }
-      persons {
-        avatar {
-          url(
-            transformation: {document: {output: {format: webp}}, image: {resize: {fit: scale, height: 100, width: 100}}}
-          )
-        }
-        name
+      ...AuthorParts
       }
       reviews {
-        createdAt
-        id
-        person {
-          avatar {
-            url(transformation: {})
-          }
-          name
-        }
-        rating
-        helpful
-        comment {
-          html
-        }
+        ...ReviewParts
       }
     }
   }
 }
+${fragments.AuthorParts}
+${fragments.TagParts}
+${fragments.PhotoSessionParts}
+${fragments.ReviewParts}
 `,
   );
   return tags || [];
 };
 export const category = async (slug) => {
   const { category } = await api(
-    `query category {
+    `
+query category {
   category(where: {slug: "${slug}"}) {
-    description {
-      html
-      text
-    }
-    image {
-      url(
-        transformation: {document: {output: {format: webp}}, image: {resize: {fit: crop, height: 1080, width: 1980}}}
-      )
-    }
+    ...CategoryParts
     photosessions(orderBy: date_DESC) {
-      author {
-        name
-        picture {
-          url(
-            transformation: {document: {output: {format: webp}}, image: {resize: {height: 64, width: 64}}}
-          )
-        }
+      ...PhotoSessionParts
+      place{
+        ...PlaceParts
       }
-      coverImage {
-        url(
-          transformation: {document: {output: {format: webp}}, image: {resize: {fit: max, height: 358, width: 358}}}
-        )
-      }
-      date
-      excerpt
-      images {
-        id
-      }
-      slug
-      tags {
-        id
-        slug
-        title
-      }
-      category {
+      category{
         slug
       }
-      place {
-        location
+      author{
+        ...AuthorParts
       }
-      title
     }
-    slug
-    title
   }
 }
+${fragments.CategoryParts}
+${fragments.AuthorParts}
+${fragments.PhotoSessionParts}
+${fragments.PlaceParts}
 `,
   );
   return category || [];
 };
 
-export async function lastPhotosessions(number = 6){
-  const {photosessions} = await api(`
+export async function lastPhotosessions(number = 6) {
+  const { photosessions } = await api(`
 query lastPhotosessions {
   photosessions(first: ${number}, orderBy: date_DESC) {
     category {
-      slug
+      ...CategoryParts
     }
     author {
-      name
-      title
-      picture {
-        url(
-          transformation: {document: {output: {format: webp}}, image: {resize: {height: 65, width: 65}}}
-        )
-      }
+...AuthorParts
     }
     coverImage {
       url(
@@ -387,6 +224,57 @@ query lastPhotosessions {
     title
   }
 }
-  `);
+${fragments.CategoryParts}
+${fragments.AuthorParts}
+`);
   return photosessions || [];
+}
+
+export const author = async (slug) => {
+  const { author } = await api(
+    `
+query author {
+  author(where: {slug: "${slug}"}) {
+    ...AuthorParts
+    picture {
+        url(
+          transformation: {document: {output: {format: webp}}, image: {resize: {height: 560, width: 1980}}}
+        )
+    }
+    photosessions(orderBy: date_DESC) {
+      ...PhotoSessionParts
+      place{
+        ...PlaceParts
+      }
+      category{
+        slug
+      }
+      author{
+        ...AuthorParts
+      }
+      tags {
+        ...TagParts
+      }
+    }
+  }
+}
+${fragments.AuthorParts}
+${fragments.PhotoSessionParts}
+${fragments.PlaceParts}
+${fragments.TagParts}
+`,
+  );
+  return author || [];
+};
+
+export async function authorsPaths() {
+  const { authors } = await api(
+    `
+query authors {
+  authors {
+    slug
+  }
+}
+`);
+  return authors;
 }

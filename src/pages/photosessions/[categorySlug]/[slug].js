@@ -19,6 +19,9 @@ import PhotoGallery from '../../../components/photosessions/PhotoGallery';
 import ProductDetailsReviewList from '../../../components/ProductDetailsReviewList';
 import SetHead from '../../../utils/SetHead';
 import getMetaDescriptionText from '../../../utils/getMetaDescriptionText';
+import { MAIN_ROUTES } from '../../../config';
+import Link from 'next/link';
+import Button from '@mui/material/Button';
 
 const RootStyle = styled('div')(({ theme }) => ({
   minHeight: '100%',
@@ -71,11 +74,18 @@ export default function Slug({ data = null }) {
     <AnimatedText text={<>
 
       <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
-        <AvatarGroup>
-          <Avatar component={'span'} sx={{ mr: 1, display: 'inline-block', width: '40px', height: '40px' }}
-                  alt={author.name}
-                  src={author.picture.url} />
-        </AvatarGroup> Фотограф: {author.name}
+        <Link href={`/${MAIN_ROUTES.AUTHORS}/${author.slug}`} passHref>
+          <Button >
+            <Stack alignItems={'end'} direction={'row'}>
+              <AvatarGroup>
+                <Avatar component={'span'} sx={{ mr: 1, display: 'inline-block', width: '40px', height: '40px' }}
+                        alt={author.name}
+                        src={author.picture.url}/>
+              </AvatarGroup>
+              <Typography component={'span'} variant={'h5'}>Фотограф: {author.name}</Typography>
+            </Stack>
+          </Button>
+        </Link>
       </Box>
 
     </>} effect={'inRight'} />
@@ -127,7 +137,7 @@ export default function Slug({ data = null }) {
                 href: `/photosessions/${category.slug}`,
               },
               {
-                name:  `${title}`,
+                name: `${title}`,
               },
             ]}
           />

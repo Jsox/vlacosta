@@ -59,7 +59,7 @@ export default function MainFooter() {
           </Grid>
           <Grid item xs={8} md={4}>
             <Typography align="justify" variant="body2" sx={{ pr: { md: 5 } }}>
-              <Typography variant="subtitle2" sx={{ pr: { md: 5 } }}>Студия фотографии и фотографы в
+              <Typography component={'span'} variant="subtitle2" sx={{ pr: { md: 5 } }}>Студия фотографии и фотографы в
                 Новороссийске.</Typography>
               У нас Вы можете заказать фотосессию и фотографа любого жанра, начиная от свадебной, семейной или детской
               фотосессии и заканчивая фотосъемкой квартиры для сдачи в аренду, товаров для вайлдберис или открытия

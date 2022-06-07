@@ -18,27 +18,19 @@ export default function usePagination() {
     }
   };
 
-  const initialPage = (page) => {
-    if (page) {
-      if (page == 1) {
-        setHash('');
-        setTitleAddon('');
-      } else {
-        setHash(`#page-${page}`);
-        setTitleAddon(`| Страница ${page}`);
-      }
-    } else {
-      setHash('');
-      setTitleAddon('');
-    }
-  };
 
   useEffect(() => {
     addEventListener('hashchange', event => {
       if (getHashPage() != page)
         setPage(getHashPage());
     });
-    initialPage(page);
+    if (page == 1) {
+      setHash('');
+      setTitleAddon('');
+    } else {
+      setHash(`#page-${page}`);
+      setTitleAddon(`| Страница ${page}`);
+    }
   }, [page]);
 
   return {

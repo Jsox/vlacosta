@@ -9,6 +9,7 @@ import Image from '../../components/Image';
 import Iconify from '../../components/Iconify';
 import TextIconLabel from '../../components/TextIconLabel';
 import { MotionContainer, varFade } from '../../components/animate';
+import { CONTACTS } from '../../config';
 
 // ----------------------------------------------------------------------
 
@@ -150,7 +151,7 @@ export default function HomeHero() {
             {/*</Stack>*/}
 
             <m.div variants={varFade().inRight}>
-              <NextLink href={'tel:+79788048353'} passHref>
+              <NextLink href={CONTACTS.PHONE.LINK} passHref>
                 <Button
                   size="large"
                   variant="contained"

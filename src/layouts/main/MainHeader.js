@@ -9,7 +9,7 @@ import useResponsive from '../../hooks/useResponsive';
 // utils
 import cssStyles from '../../utils/cssStyles';
 // config
-import { HEADER } from '../../config';
+import { CONTACTS, HEADER } from '../../config';
 // components
 import Logo from '../../components/Logo';
 //
@@ -85,9 +85,9 @@ export default function MainHeader() {
 
           <Button
             variant="contained"
-            target="_blank"
+            // target="_blank"
             rel="noopener"
-            href="tel:+79788048353"
+            href={CONTACTS.PHONE.LINK}
           >
             Позвонить
           </Button>

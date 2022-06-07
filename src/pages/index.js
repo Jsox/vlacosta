@@ -11,6 +11,7 @@ import { lastPhotosessions } from '../utils/api';
 import usePagination from '../hooks/usePagination';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import useResponsive from '../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
@@ -34,14 +35,15 @@ HomePage.getLayout = function getLayout(page) {
 
 export default function HomePage({ photosessions }) {
   const pagination = usePagination();
+
   return (
     <Page title='Заказать профессиональную фотосессию'>
       <RootStyle>
         <HomeHero />
         <ContentStyle>
           <Container>
-            <Typography sx={{pt:4}} variant={'h2'}>Последние фотосессии</Typography>
-            <PhotoSessionsList sessionsOnPage={3} photosessions={photosessions} pagination={pagination} />
+            <Typography sx={{ pt: 4 }} variant={'h2'}>Последние фотосессии</Typography>
+            <PhotoSessionsList sessionsOnPage={6} photosessions={photosessions} pagination={pagination} />
           </Container>
           {/*<HomeMinimal />*/}
 

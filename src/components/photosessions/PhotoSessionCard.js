@@ -10,13 +10,13 @@ import { m } from 'framer-motion';
 import FadeInWhenVisible from '../animate/ShowThenInView';
 
 function PhotoSessionCard({ item, sx, index = 0 }) {
-  const { author, place, slug, category, title: name, images, date: bookdAt, coverImage: cover, tags: roomType } = item;
+  const { excerpt, author, place, slug, category, title: name, images, date: bookdAt, coverImage: cover, tags: roomType } = item;
   return (
     <m.div
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.99 }}
     >
-      <FadeInWhenVisible  delay={index * 0.05}>
+      <FadeInWhenVisible delay={index * 0.05}>
         <Paper sx={{ mx: 0, borderRadius: 2, bgcolor: 'background.neutral', ...sx }}>
           <Stack spacing={1.5} sx={{ p: 1, pt: 2, pb: 1.5 }}>
             <Stack direction="row" alignItems="center" spacing={1}>
@@ -53,10 +53,12 @@ function PhotoSessionCard({ item, sx, index = 0 }) {
 
             <Stack direction="row" justifyContent={'space-between'} alignItems="center" spacing={3}
                    sx={{ color: 'text.secondary', px: 1 }}>
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <Iconify icon={'clarity:camera-solid'} width={20} height={20} />
-                <Typography variant="caption">Фотограф: {author.name}</Typography>
-              </Stack>
+              <Link href={'/authors/' + author.slug}>
+                <Stack component={'a'} direction="row" alignItems="center" spacing={1}>
+                  <Iconify icon={'clarity:camera-solid'} width={20} height={20} />
+                  <Typography variant="caption">Фотограф: {author.name}</Typography>
+                </Stack>
+              </Link>
               <Stack direction="row" alignItems="center" spacing={1}>
                 <Iconify icon={'wpf:stack-of-photos'} width={20} height={20} />
                 <Typography variant="caption">Фото: {images.length} шт.</Typography>

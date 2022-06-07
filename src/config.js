@@ -60,4 +60,16 @@ export const MAIN_ROUTES = {
   PRICES: 'prices',
   ABOUT: 'about-us',
   CONTACT: 'contacts',
+  AUTHORS: 'authors'
 };
+
+export const CONTACTS = {
+  PHONE: {
+    TEXT: '+7(964)932-35-93',
+    LINK: 'tel:+79649323593'
+  },
+  EMAIL: {
+    TEXT: 'admin@vlacosta.ru',
+    LINK: 'mailto:admin@vlacosta.ru',
+  }
+}

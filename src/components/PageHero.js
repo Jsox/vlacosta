@@ -22,6 +22,7 @@ const RootStyle = styled('div')(({ backgroundimage, auto, theme }) => ({
 
 const ContentStyle = styled('div')(({ theme }) => ({
   textAlign: 'center',
+  width: '100%',
   [theme.breakpoints.up('md')]: {
     textAlign: 'left',
     position: 'absolute',
