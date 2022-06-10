@@ -15,7 +15,7 @@ const RootStyle = styled('div')(({ backgroundimage, auto, theme }) => ({
     `url(/assets/overlay.svg)${backgroundimage && ', url(' + backgroundimage})`,
   padding: theme.spacing(10, 0, 2),
   [theme.breakpoints.up('md')]: {
-    height: auto != '0' ? 300 : 560,
+    height: auto != '0' ? 350 : 560,
     padding: 0,
   },
 }));

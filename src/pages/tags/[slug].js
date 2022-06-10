@@ -10,6 +10,8 @@ import { MAIN_ROUTES } from '../../config';
 import PageHero from '../../components/PageHero';
 import getMetaDescriptionText from '../../utils/getMetaDescriptionText';
 import SetHead from '../../utils/SetHead';
+import Link from 'next/link';
+import Button from '@mui/material/Button';
 
 Tag.getLayout = function getLayout(page) {
   return <Layout variant='main'>{page}</Layout>;
@@ -26,11 +28,16 @@ export default function Tag({ data }) {
     return null;
 
   const { photosessions, title } = data[0];
+  const photosessionsLength = photosessions.length;
+
+  const blocks = {
+    left: <Typography variant='h4' >{`Всего ${photosessionsLength} штук`}</Typography>
+  }
   return (
     <Page>
-      <SetHead title={`Наши Фотосъемкисъёмки в жанре "${title}"`}
-               description={getMetaDescriptionText(`Все наши фотосессии в жанре "${title}" в Новороссийске, Анапе, Геленджике, Кабардинке и других`)} />
-      <PageHero auto={'1'} header={`${title}`}
+      <SetHead title={`Наши Фотосъемкисъёмки в жанре "${title}". ${photosessionsLength} примеров`}
+               description={getMetaDescriptionText(`Все наши фотосессии в жанре "${title}" в Новороссийске, Анапе, Геленджике, Кабардинке и других. ${photosessionsLength} сессий`)} />
+      <PageHero blocks={blocks} auto={'1'} header={`Фотосъёмки в жанре "${title}"`}
                 backgroundimage='https://media.graphassets.com/output=format:webp/resize=height:800,fit:max/T7FliKLQRzKkOGsEyEL0' />
       <RootStyle>
         <Container>
@@ -50,8 +57,10 @@ export default function Tag({ data }) {
               },
             ]}
           />
-          {photosessions && photosessions.length && photosessions.map(({ title, slug }) => (
-              <Typography key={slug}>{title}</Typography>
+          {photosessions && photosessions.length && photosessions.map(({category, title, slug }) => (
+            <Link key={slug} href={`/photosessions/${category.slug}/${slug}`} passHref>
+              <Button component={'a'} variant={'h3'}>{title}</Button>
+            </Link>
             ),
           )}
         </Container>
