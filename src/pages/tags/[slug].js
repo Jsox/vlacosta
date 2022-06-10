@@ -8,6 +8,8 @@ import { Container } from '@mui/material';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { MAIN_ROUTES } from '../../config';
 import PageHero from '../../components/PageHero';
+import getMetaDescriptionText from '../../utils/getMetaDescriptionText';
+import SetHead from '../../utils/SetHead';
 
 Tag.getLayout = function getLayout(page) {
   return <Layout variant='main'>{page}</Layout>;
@@ -26,6 +28,8 @@ export default function Tag({ data }) {
   const { photosessions, title } = data[0];
   return (
     <Page>
+      <SetHead title={`Наши Фотосъемкисъёмки в жанре "${title}"`}
+               description={getMetaDescriptionText(`Все наши фотосессии в жанре "${title}" в Новороссийске, Анапе, Геленджике, Кабардинке и других`)} />
       <PageHero auto={'1'} header={`${title}`}
                 backgroundimage='https://media.graphassets.com/output=format:webp/resize=height:800,fit:max/T7FliKLQRzKkOGsEyEL0' />
       <RootStyle>
