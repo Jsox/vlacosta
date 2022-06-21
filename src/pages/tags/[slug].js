@@ -12,6 +12,10 @@ import getMetaDescriptionText from '../../utils/getMetaDescriptionText';
 import SetHead from '../../utils/SetHead';
 import Link from 'next/link';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import BlogPostCard from '../../sections/@dashboard/blog/BlogPostCard';
+import SkeletonPostItem from '../../components/skeleton/SkeletonPostItem';
+import TypographyDangerSetHtml from '../../utils/dangerSetHtml';
 
 Tag.getLayout = function getLayout(page) {
   return <Layout variant='main'>{page}</Layout>;
@@ -27,17 +31,18 @@ export default function Tag({ data }) {
   if (data.length === 0)
     return null;
 
-  const { photosessions, title } = data[0];
+  const { photosessions, title, description } = data[0];
   const photosessionsLength = photosessions.length;
 
   const blocks = {
-    left: <Typography variant='h4' >{`Всего ${photosessionsLength} штук`}</Typography>
+    left: <Typography variant='h4' >{`Всего ${photosessionsLength} шт.`}</Typography>,
+    bottom: <TypographyDangerSetHtml variant='h5' >{description.html}</TypographyDangerSetHtml>
   }
   return (
     <Page>
       <SetHead title={`Наши Фотосъемкисъёмки в жанре "${title}". ${photosessionsLength} примеров`}
                description={getMetaDescriptionText(`Все наши фотосессии в жанре "${title}" в Новороссийске, Анапе, Геленджике, Кабардинке и других. ${photosessionsLength} сессий`)} />
-      <PageHero blocks={blocks} auto={'1'} header={`Фотосъёмки в жанре "${title}"`}
+      <PageHero blocks={blocks} auto={'0'} header={`Фотосъёмки в жанре "${title}"`}
                 backgroundimage='https://media.graphassets.com/output=format:webp/resize=height:800,fit:max/T7FliKLQRzKkOGsEyEL0' />
       <RootStyle>
         <Container>
@@ -57,12 +62,23 @@ export default function Tag({ data }) {
               },
             ]}
           />
-          {photosessions && photosessions.length && photosessions.map(({category, title, slug }) => (
-            <Link key={slug} href={`/photosessions/${category.slug}/${slug}`} passHref>
-              <Button component={'a'} variant={'h3'}>{title}</Button>
-            </Link>
-            ),
-          )}
+          <Grid container spacing={3}>
+            {photosessions.map((post, index) =>
+              post ? (
+                <Grid key={post.id} item xs={12} sm={6} md={(index === 0 && 6) || 3}>
+                  <BlogPostCard post={post} index={index} />
+                </Grid>
+              ) : (
+                <SkeletonPostItem key={index} />
+              )
+            )}
+          </Grid>
+          {/*{photosessions && photosessions.length && photosessions.map(({category, title, slug }) => (*/}
+          {/*  <Link key={slug} href={`/photosessions/${category.slug}/${slug}`} passHref>*/}
+          {/*    <Button component={'a'} variant={'h3'}>{title}</Button>*/}
+          {/*  </Link>*/}
+          {/*  ),*/}
+          {/*)}*/}
         </Container>
       </RootStyle>
     </Page>

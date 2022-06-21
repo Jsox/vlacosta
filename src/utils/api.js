@@ -142,7 +142,7 @@ export const tags = async (slug = null) => {
     `query tags {
   tags(${slug ? `where: {slug: "${slug}"}` : ''}) {
     ...TagParts
-    photosessions ${slug ? '' : '(last: 6)'} {
+    photosessions ${slug ? '(orderBy: date_DESC)' : '(last: 6, orderBy: date_DESC)'} {
       ...PhotoSessionParts
       category { 
         slug

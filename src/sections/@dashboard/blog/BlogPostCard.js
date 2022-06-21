@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
-import { paramCase } from 'change-case';
 // next
 import NextLink from 'next/link';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Card, Avatar, Typography, CardContent, Link, Stack } from '@mui/material';
-// routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import { Avatar, Box, Card, CardContent, Link, Stack, Typography } from '@mui/material';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // utils
-import { fDate } from '../../../utils/formatTime';
+import { fDate, fToNow } from '../../../utils/formatTime';
 import { fShortenNumber } from '../../../utils/formatNumber';
 // components
 import Image from '../../../components/Image';
@@ -40,7 +37,9 @@ BlogPostCard.propTypes = {
 export default function BlogPostCard({ post, index }) {
   const isDesktop = useResponsive('up', 'md');
 
-  const { cover, title, view, comment, share, author, createdAt } = post;
+  const { coverImage, title, view, comment, share, author, date: createdAt, category, slug } = post;
+
+  const linkTo = `/photosessions/${category.slug}/${slug}`;
 
   const latestPost = index === 0 || index === 1 || index === 2;
 
@@ -49,7 +48,7 @@ export default function BlogPostCard({ post, index }) {
       <Card>
         <Avatar
           alt={author.name}
-          src={author.avatarUrl}
+          src={author.picture.url}
           sx={{
             zIndex: 9,
             top: 24,
@@ -59,9 +58,10 @@ export default function BlogPostCard({ post, index }) {
             position: 'absolute',
           }}
         />
-        <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} index={index} />
+        <PostContent linkTo={linkTo} title={title} view={view} comment={comment} share={share} createdAt={createdAt}
+                     index={index} />
         <OverlayStyle />
-        <Image alt="cover" src={cover} sx={{ height: 360 }} />
+        <Image alt={title} src={coverImage.url} sx={{ height: 360 }} />
       </Card>
     );
   }
@@ -82,7 +82,7 @@ export default function BlogPostCard({ post, index }) {
         />
         <Avatar
           alt={author.name}
-          src={author.avatarUrl}
+          src={author.picture.url}
           sx={{
             left: 24,
             zIndex: 9,
@@ -92,10 +92,10 @@ export default function BlogPostCard({ post, index }) {
             position: 'absolute',
           }}
         />
-        <Image alt="cover" src={cover} ratio="4/3" />
+        <Image alt={title} src={coverImage.url} ratio="4/3" />
       </Box>
 
-      <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} />
+      <PostContent linkTo={linkTo} title={title} view={view} comment={comment} share={share} createdAt={createdAt} />
     </Card>
   );
 }
@@ -111,10 +111,8 @@ PostContent.propTypes = {
   view: PropTypes.number,
 };
 
-export function PostContent({ title, view, comment, share, createdAt, index }) {
+export function PostContent({ title, view, comment, share, createdAt, index, linkTo }) {
   const isDesktop = useResponsive('up', 'md');
-
-  const linkTo = PATH_DASHBOARD.blog.view(paramCase(title));
 
   const latestPostLarge = index === 0;
   const latestPostSmall = index === 1 || index === 2;
@@ -151,7 +149,7 @@ export function PostContent({ title, view, comment, share, createdAt, index }) {
           }),
         }}
       >
-        {fDate(createdAt)}
+        {`${fDate(createdAt)} (${fToNow(createdAt)})`}
       </Typography>
 
       <NextLink href={linkTo} passHref>
