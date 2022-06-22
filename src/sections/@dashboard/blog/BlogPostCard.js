@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
-// next
 import NextLink from 'next/link';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Avatar, Box, Card, CardContent, Link, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Stack } from '@mui/material';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // utils
@@ -15,6 +14,9 @@ import Iconify from '../../../components/Iconify';
 import TextMaxLine from '../../../components/TextMaxLine';
 import SvgIconStyle from '../../../components/SvgIconStyle';
 import TextIconLabel from '../../../components/TextIconLabel';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +39,7 @@ BlogPostCard.propTypes = {
 export default function BlogPostCard({ post, index }) {
   const isDesktop = useResponsive('up', 'md');
 
-  const { coverImage, title, view, comment, share, author, date: createdAt, category, slug } = post;
+  const { content, excerpt, coverImage, title, view, comment, share, author, date: createdAt, category, slug } = post;
 
   const linkTo = `/photosessions/${category.slug}/${slug}`;
 
@@ -58,7 +60,8 @@ export default function BlogPostCard({ post, index }) {
             position: 'absolute',
           }}
         />
-        <PostContent linkTo={linkTo} title={title} view={view} comment={comment} share={share} createdAt={createdAt}
+        <PostContent linkTo={linkTo} title={title} largeText={content.text.replace('\\n', ' ')} totalPhotos={post.images.length}
+                     comment={comment} share={share} createdAt={createdAt}
                      index={index} />
         <OverlayStyle />
         <Image alt={title} src={coverImage.url} sx={{ height: 360 }} />
@@ -95,7 +98,8 @@ export default function BlogPostCard({ post, index }) {
         <Image alt={title} src={coverImage.url} ratio="4/3" />
       </Box>
 
-      <PostContent linkTo={linkTo} title={title} view={view} comment={comment} share={share} createdAt={createdAt} />
+      <PostContent largeText={content.text.replace('\\n', ' ')} linkTo={linkTo} title={title} totalPhotos={post.images.length}
+                   comment={comment} share={share} createdAt={createdAt} />
     </Card>
   );
 }
@@ -111,7 +115,7 @@ PostContent.propTypes = {
   view: PropTypes.number,
 };
 
-export function PostContent({ title, view, comment, share, createdAt, index, linkTo }) {
+export function PostContent({ title, largeText, totalPhotos, comment, share, createdAt, index, linkTo }) {
   const isDesktop = useResponsive('up', 'md');
 
   const latestPostLarge = index === 0;
@@ -119,7 +123,7 @@ export function PostContent({ title, view, comment, share, createdAt, index, lin
 
   const POST_INFO = [
     { number: comment, icon: 'eva:message-circle-fill' },
-    { number: view, icon: 'eva:eye-fill' },
+    { number: totalPhotos, icon: 'ic:outline-photo-library' },
     { number: share, icon: 'eva:share-fill' },
   ];
 
@@ -137,8 +141,9 @@ export function PostContent({ title, view, comment, share, createdAt, index, lin
         }),
       }}
     >
-      <Typography
+      <TextMaxLine
         gutterBottom
+        line={1}
         variant="caption"
         component="div"
         sx={{
@@ -150,15 +155,16 @@ export function PostContent({ title, view, comment, share, createdAt, index, lin
         }}
       >
         {`${fDate(createdAt)} (${fToNow(createdAt)})`}
-      </Typography>
+      </TextMaxLine>
 
       <NextLink href={linkTo} passHref>
-        <Link color="inherit">
+        <Link variant={'link'}>
           <TextMaxLine variant={isDesktop && latestPostLarge ? 'h5' : 'subtitle2'} line={2} persistent>
             {title}
           </TextMaxLine>
         </Link>
       </NextLink>
+      <TextMaxLine sx={{pt: 1}} line={isDesktop && latestPostLarge ? 4 : 3} persistent>{largeText}</TextMaxLine>
 
       <Stack
         flexWrap="wrap"

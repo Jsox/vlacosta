@@ -8,9 +8,10 @@ import Image from '../Image';
 import React from 'react';
 import { m } from 'framer-motion';
 import FadeInWhenVisible from '../animate/ShowThenInView';
+import TextMaxLine from '../TextMaxLine';
 
 function PhotoSessionCard({ item, sx, index = 0 }) {
-  const { excerpt, author, place, slug, category, title: name, images, date: bookdAt, coverImage: cover, tags: roomType } = item;
+  const { content, excerpt, author, place, slug, category, title: name, images, date: bookdAt, coverImage: cover, tags: roomType } = item;
   return (
     <m.div
       whileHover={{ scale: 1.02 }}
@@ -53,12 +54,12 @@ function PhotoSessionCard({ item, sx, index = 0 }) {
 
             <Stack direction="row" justifyContent={'space-between'} alignItems="center" spacing={3}
                    sx={{ color: 'text.secondary', px: 1 }}>
-              <Link href={'/authors/' + author.slug}>
-                <Stack component={'a'} direction="row" alignItems="center" spacing={1}>
+              <NextLink href={'/authors/' + author.slug} passHref>
+                <Stack sx={{color: 'text.primary'}} component={'a'} direction="row" alignItems="center" spacing={1}>
                   <Iconify icon={'clarity:camera-solid'} width={20} height={20} />
                   <Typography variant="caption">Фотограф: {author.name}</Typography>
                 </Stack>
-              </Link>
+              </NextLink>
               <Stack direction="row" alignItems="center" spacing={1}>
                 <Iconify icon={'wpf:stack-of-photos'} width={20} height={20} />
                 <Typography variant="caption">Фото: {images.length} шт.</Typography>
@@ -66,12 +67,13 @@ function PhotoSessionCard({ item, sx, index = 0 }) {
 
 
             </Stack>
+            <TextMaxLine persistent={true} line={3}>{content.text.replace('\\n', ' ')}</TextMaxLine>
           </Stack>
 
           <Box sx={{ p: 1, position: 'relative' }}>
             {roomType && roomType.map(({ title, slug }, i) => {
               let bottom = (i * 25) + 16;
-              return <NextLink key={slug} href={`/tags/${slug}`} passHref>
+              return <NextLink key={slug} href={`/tags/${slug}`}>
                 <a>
                   <Label
                     variant="filled"

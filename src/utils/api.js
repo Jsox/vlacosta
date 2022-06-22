@@ -197,6 +197,9 @@ export async function lastPhotosessions(number = 6) {
   const { photosessions } = await api(`
 query lastPhotosessions {
   photosessions(first: ${number}, orderBy: date_DESC) {
+    content {
+     text
+    }
     category {
       ...CategoryParts
     }

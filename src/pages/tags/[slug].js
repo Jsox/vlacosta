@@ -17,6 +17,8 @@ import BlogPostCard from '../../sections/@dashboard/blog/BlogPostCard';
 import SkeletonPostItem from '../../components/skeleton/SkeletonPostItem';
 import TypographyDangerSetHtml from '../../utils/dangerSetHtml';
 
+import { upperCaseFirst } from "upper-case-first";
+
 Tag.getLayout = function getLayout(page) {
   return <Layout variant='main'>{page}</Layout>;
 };
@@ -40,14 +42,14 @@ export default function Tag({ data }) {
   }
   return (
     <Page>
-      <SetHead title={`Наши Фотосъемкисъёмки в жанре "${title}". ${photosessionsLength} примеров`}
-               description={getMetaDescriptionText(`Все наши фотосессии в жанре "${title}" в Новороссийске, Анапе, Геленджике, Кабардинке и других. ${photosessionsLength} сессий`)} />
-      <PageHero blocks={blocks} auto={'0'} header={`Фотосъёмки в жанре "${title}"`}
+      <SetHead title={`Наши Фотосъемкисъёмки в жанре "${upperCaseFirst(title)}". ${photosessionsLength} примеров`}
+               description={getMetaDescriptionText(`Все наши фотосессии в жанре "${upperCaseFirst(title)}" в Новороссийске, Анапе, Геленджике, Кабардинке и других. ${photosessionsLength} сессий`)} />
+      <PageHero blocks={blocks} auto={'0'} header={`Фотосъёмки в жанре "${upperCaseFirst(title)}"`}
                 backgroundimage='https://media.graphassets.com/output=format:webp/resize=height:800,fit:max/T7FliKLQRzKkOGsEyEL0' />
       <RootStyle>
         <Container>
           <HeaderBreadcrumbs
-            heading={`${title}`}
+            heading={`${upperCaseFirst(title)}`}
             links={[
               {
                 name: 'Главная',
@@ -58,18 +60,18 @@ export default function Tag({ data }) {
                 href: `/${MAIN_ROUTES.TAGS}`,
               },
               {
-                name: title,
+                name: upperCaseFirst(title),
               },
             ]}
           />
           <Grid container spacing={3}>
             {photosessions.map((post, index) =>
               post ? (
-                <Grid key={post.id} item xs={12} sm={6} md={(index === 0 && 6) || 3}>
+                <Grid key={post.slug} item xs={12} sm={6} md={(index === 0 && 6) || 3}>
                   <BlogPostCard post={post} index={index} />
                 </Grid>
               ) : (
-                <SkeletonPostItem key={index} />
+                <SkeletonPostItem key={post.slug} />
               )
             )}
           </Grid>
